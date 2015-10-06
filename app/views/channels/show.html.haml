@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @channel.name
+%p
+  %b Description:
+  = @channel.description
+%p
+  %b Interactions:
+  = @channel.interactions
+%p
+  %b Registeres:
+  = @channel.registeres
+
+= link_to 'Edit', edit_channel_path(@channel)
+\|
+= link_to 'Back', channels_path

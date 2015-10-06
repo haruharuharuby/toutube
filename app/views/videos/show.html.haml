@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @video.title
+%p
+  %b Description:
+  = @video.description
+%p
+  %b Uri:
+  = @video.uri
+%p
+  %b Good:
+  = @video.good
+%p
+  %b Bad:
+  = @video.bad
+%p
+  %b Interactions:
+  = @video.interactions
+
+= link_to 'Edit', edit_video_path(@video)
+\|
+= link_to 'Back', videos_path

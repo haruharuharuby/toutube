@@ -1,0 +1,21 @@
+development:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: toutube_development
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  encoding: utf8
+  database: toutube_test
+
+production:
+  adapter: mysql2
+  encoding: unicode
+  database: toutube_production
+  pool: 5
