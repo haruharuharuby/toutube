@@ -1,0 +1,179 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+$left-width: 20%;
+$header-height: 35px;
+
+@import url(https://fonts.googleapis.com/css?family=Gruppo);
+
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin button-face
+{
+  font-size: 13px;
+  text-align: center;
+  background: linear-gradient(white, gray);
+  height: $header-height;
+  width: 75px;
+  border: 1px;
+  border-radius: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+html
+{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after
+{
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+ 	background-color: #fefefe;
+ 	color: #222;
+ 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+ 	font-weight: 300;
+ 	font-size: 15px;
+ }
+
+ nav {
+	background-color: #fff;
+	border: 1px solid #dedede;
+	border-radius: 4px;
+	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+	color: #888;
+	display: block;
+	overflow: hidden;
+}
+
+.header-container
+{
+  display: flex;
+  width: 100%;
+  height: $header-height;
+
+  .toutube-logo-container
+  {
+    @include vertical-align();
+
+    font-family: 'Gruppo', cursive;
+    background: linear-gradient(white, gray);
+    font-size: 200%;
+    border-radius: 5px;
+    width: $left-width;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+  }
+
+  .search-bar-container
+  {
+    @include vertical-align();
+
+    width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    input#search_keyword
+    {
+      width: 75%;
+      height: $header-height;
+      border: 1px;
+      border-style: solid;
+      border-color: darkgray;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  }
+
+  .signup-container
+  {
+    @include vertical-align();
+
+    padding-left: 10px;
+    width:10%;
+  }
+
+  .user-container
+  {
+    @include vertical-align();
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+
+    .user-information
+    {
+      position: relative;
+      top: 40px;
+      left: -10px;
+      width:300px;
+      height:100px;
+      padding: 10px;
+      background-color: gainsboro;
+      border-radius: 5px;
+    }
+    .user-information:before
+    {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top : -10px;
+      border-width: 0 10px 10px 10px;
+      border-style: solid;
+      border-color: transparent transparent gainsboro;
+    }
+  }
+
+  input[type="submit"]
+  {
+    @include button-face();
+  }
+}
+
+.menu-and-contantes-container
+{
+  padding-top: 10px;
+  display: flex;
+
+  .left-menu-container
+  {
+    width: $left-width;
+    height: 100%;
+  }
+
+  .contents-container
+  {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

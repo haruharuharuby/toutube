@@ -1,74 +1,67 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :require_user, only: [:new, :reputate]
+  before_action :set_video, except: [:index, :search, :new, :create]
 
-  # GET /videos
-  # GET /videos.json
   def index
     @videos = Video.all
   end
 
-  # GET /videos/1
-  # GET /videos/1.json
   def show
+    if @video.rating == nil
+      r = Rating.new
+      r.video_id = @video.id
+      r.save
+      set_video
+    else
+      @video.rating.up()
+    end
   end
 
-  # GET /videos/new
   def new
-    @video = Video.new
+    @video = current_user.channels.current.first.videos.build
   end
 
-  # GET /videos/1/edit
-  def edit
-  end
-
-  # POST /videos
-  # POST /videos.json
   def create
     @video = Video.new(video_params)
-
-    respond_to do |format|
-      if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
-        format.json { render :show, status: :created, location: @video }
-      else
-        format.html { render :new }
-        format.json { render json: @video.errors, status: :unprocessable_entity }
-      end
+    @video.user = current_user
+    @video.channel = current_user.channels.current.first
+    if @video.save
+      redirect_to @video, notice: 'Video was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PATCH/PUT /videos/1
-  # PATCH/PUT /videos/1.json
   def update
-    respond_to do |format|
-      if @video.update(video_params)
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
-        format.json { render :show, status: :ok, location: @video }
-      else
-        format.html { render :edit }
-        format.json { render json: @video.errors, status: :unprocessable_entity }
-      end
+    if @video.update(video_params)
+      redirect_to @video, notice: 'Video was successfully updated.'
+    else
+      render :edit
     end
   end
 
-  # DELETE /videos/1
-  # DELETE /videos/1.json
   def destroy
     @video.destroy
-    respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+     redirect_to videos_url, notice: 'Video was successfully destroyed.'
+  end
+
+  def search
+    @videos = Video.search(params[:search_keyword])
+    render :index
+  end
+
+  def reputate
+    Reputation.add(current_user, @video, params[:status].to_i)
+    @video.rating.update
+    redirect_to @video
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_video
       @video = Video.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:title, :description, :uri, :good, :bad, :interactionCount)
+      params.require(:video).permit(:title, :description, :uri, :channel_id)
     end
 end

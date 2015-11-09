@@ -26,13 +26,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails'
 
 gem 'carrierwave'
+gem 'carrierwave-video-thumbnailer'
 gem "fog-aws"
 gem 'aws-sdk-core'
 gem 'aws-sdk-resources'
 gem 'devise'
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -1,27 +1,8 @@
-%h1 Listing channels
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Interactions
-      %th Registeres
-      %th
-      %th
-      %th
-
-  %tbody
-    - @channels.each do |channel|
-      %tr
-        %td= channel.name
-        %td= channel.description
-        %td= channel.interactions
-        %td= channel.registeres
-        %td= link_to 'Show', channel
-        %td= link_to 'Edit', edit_channel_path(channel)
-        %td= link_to 'Destroy', channel, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Channel', new_channel_path
+.drop-down-container
+  %ul
+    %li
+      - @channels.each do |channel|
+        .channel-information
+          = link_to channel.name, channel_path(channel)
+          %br
+          = image_tag channel.videos.first.uri_url(:thumb)

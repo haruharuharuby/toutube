@@ -1,31 +1,18 @@
-%h1 Listing videos
-
-%table
-  %thead
-    %tr
-      %th Title
-      %th Description
-      %th Uri
-      %th Good
-      %th Bad
-      %th Interactioncount
-      %th
-      %th
-      %th
-
-  %tbody
-    - @videos.each do |video|
-      %tr
-        %td= video.title
-        %td= video.description
-        %td= video.uri
-        %td= video.good
-        %td= video.bad
-        %td= video.interactions
-        %td= link_to 'Show', video
-        %td= link_to 'Edit', edit_channel_video_path(video.channel_id, video)
-        %td= link_to 'Destroy', video, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Video', new_video_path
+.video-index-container
+  - @videos.each do |video|
+    %ul
+      %li
+        .thumbnail
+          = image_tag video.uri_url(:thumb) if video.uri?
+        .information
+          %b 'author'
+          = video.channel.name
+          %br
+          %b 'interactions'
+          = video.rating.interactions
+          %br
+          %b 'uploaded_at'
+          = video.created_at
+          %br
+          %b
+          = link_to video.title, video

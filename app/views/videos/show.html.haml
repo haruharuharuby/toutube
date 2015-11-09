@@ -1,24 +1,48 @@
 %p#notice= notice
+.page-container
+  .watch-container
+    .contents
+      =video_tag @video.uri, controls:true, size: "640x480"
+    .information
+      %b=@video.title
+    %br
+    .channel
+      .channel-icon
+      .channel-information
+        %b=@video.channel.name
+        .channel-action
+          = form_tag register_channel_path(@video.channel), method: :post do
+            - if @video.channel.already_registered?(current_user)
+              = hidden_field_tag 'register', 0
+              = submit_tag 'unregister channel'
+            - else
+              = hidden_field_tag 'register', 1
+              = submit_tag 'register channel'
+        .channel-registeres
+      .interactions
+        %b 視聴回数:
+        =@video.rating.interactions
+    .playlist
+      .add-plylist-action
+        .button
+          .icon
+            = image_tag 'ic_add_black_24dp_1x.png'
+          .button
+            = link_to "add", playlists_path, remote: true
+        .button
+          .icon
+            = image_tag 'ic_share_black_24dp_1x.png'
+          .button
+            = link_to "share", playlists_path, remote: true
+        .button
+          .icon
+            = image_tag 'ic_more_horiz_black_24dp_1x.png'
+          .button
+            = link_to "other...", playlists_path, remote: true
+      .reputate-action-button
+        = render partial: "reputations/reputation", locals: {video: @video}
+    .floating-add-button-action-container
 
-%p
-  %b Title:
-  = @video.title
-%p
-  %b Description:
-  = @video.description
-%p
-  %b Uri:
-  = @video.uri
-%p
-  %b Good:
-  = @video.good
-%p
-  %b Bad:
-  = @video.bad
-%p
-  %b Interactions:
-  = @video.interactions
-
-= link_to 'Edit', edit_video_path(@video)
-\|
-= link_to 'Back', videos_path
+  .candidate-container
+    .contents
+      = render partial: "candidates", locals: {videos: Video.all}

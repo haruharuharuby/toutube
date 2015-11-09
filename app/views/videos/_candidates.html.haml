@@ -1,0 +1,18 @@
+%b candidates..
+- videos.each do |video|
+  %ul
+    %li
+      .thumbnail
+        = image_tag video.uri_url(:thumb2) if video.uri?
+      .information
+        %b 'author'
+        = video.channel.name
+        %br
+        %b 'interactions'
+        = video.rating.interactions
+        %br
+        %b 'uploaded_at'
+        = video.created_at
+        %br
+        %b
+        = link_to video.title, video

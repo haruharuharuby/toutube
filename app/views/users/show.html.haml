@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @user.name
+%p
+  %b Email:
+  = @user.email
+
+%h1 Listing your videos
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th Uri
+      %th Interactioncount
+      %th
+      %th
+      %th
+
+  %tbody
+    - @user.videos.each do |video|
+      %tr
+        %td= video.title
+        %td= video.description
+        %td= image_tag video.uri_url(:thumb) if video.uri?
+        %td= video.interactions
+        %td= link_to 'Show', video

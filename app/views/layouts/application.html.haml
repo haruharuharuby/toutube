@@ -1,0 +1,58 @@
+!!!5
+%html
+%head
+  %title Toutube
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+%body
+
+.header-container
+  .toutube-logo-container
+    TouTube
+
+  .search-bar-container
+    = form_tag search_videos_path, method: :get  do
+      = text_field_tag 'search_keyword'
+      = submit_tag 'search'
+
+  .user-container
+    .upload-container
+      = button_to 'Upload', new_video_path, method: :get
+    .signup
+      = button_to 'Sign up', signup_path, method: :get
+    - if current_user
+      .user-icon
+        = image_tag("user-icon.png", size: "32x32")
+      .user-information
+        .user-email
+          = current_user.email
+        - current_user.channels.each do |channel|
+          .user-channel
+            = link_to channel.name, channel_path(channel)
+        .user-logout
+          = button_to 'Logout', logout_path, method: :delete
+    - else
+      .user-login
+        = button_to 'Login', login_path, method: :get
+
+.menu-and-contantes-container
+  .left-menu-container
+    %nav
+      %ul
+        %li
+          = link_to "Home", videos_path
+        - if current_user
+          %li
+            = link_to "My Channel", user_channel_path(current_user, current_user.channels.current.first)
+          %li
+            = link_to "Registered channel", subscriptions_channels_path
+          %li
+            = link_to "History", channel_path(current_user), data: {view: "history"}
+          %li
+            =link_to "See later", channel_path(current_user.channels.current.first), data: {view: "see lator"}
+
+  .contents-container
+    = yield
+
+.footer-container

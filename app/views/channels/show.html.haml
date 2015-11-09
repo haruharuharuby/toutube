@@ -1,18 +1,25 @@
 %p#notice= notice
 
-%p
-  %b Name:
-  = @channel.name
-%p
-  %b Description:
-  = @channel.description
-%p
-  %b Interactions:
-  = @channel.interactions
-%p
-  %b Registeres:
-  = @channel.registeres
+.channel-title
+  %p
+    %b Channel Name:
+    = @channel.name
 
-= link_to 'Edit', edit_channel_path(@channel)
-\|
-= link_to 'Back', channels_path
+.video-index-container
+  - @channel.videos.each do |video|
+    %ul
+      %li
+        .thumbnail
+          = image_tag video.uri_url(:thumb) if video.uri?
+        .information
+          %b 'author'
+          = video.channel.name
+          %br
+          %b 'interactions'
+          = video.rating.interactions
+          %br
+          %b 'uploaded_at'
+          = video.created_at
+          %br
+          %b
+          = link_to video.title, video

@@ -1,0 +1,12 @@
+%b Add Playlists ...
+.playlist-actions
+  .add-action
+  - @playlists.each do |playlist|
+    = form_tag playlist_path(id: playlist.id) do
+      = check_box_tag playlist.name
+      = playlist.name
+
+  .new-action
+    = form_tag playlists_path, method: :post  do
+      = text_field_tag 'name'
+      = submit_tag 'create'
