@@ -1,12 +1,24 @@
 %b Add Playlists ...
 .playlist-actions
   .add-action
-  - @playlists.each do |playlist|
-    = form_tag playlist_path(id: playlist.id) do
-      = check_box_tag playlist.name
-      = playlist.name
-
+  - playlists.each do |playlist|
+    - unless playlist.id
+      = form_for playlist do |f|
+        .field
+          = f.hidden_field :name
+          = f.hidden_field :video_id
+          = f.hidden_field :user_id
+        .action
+          = f.submit playlist.name
+    -else
+      = link_to "unregister " + playlist.name, playlist, method: :delete
+      %br
   .new-action
-    = form_tag playlists_path, method: :post  do
-      = text_field_tag 'name'
-      = submit_tag 'create'
+    = form_for new_playlist do |f|
+      .field
+        = f.label :name
+        = f.text_field :name
+        = f.hidden_field :video_id
+        = f.hidden_field :user_id
+      .action
+        = f.submit "create"

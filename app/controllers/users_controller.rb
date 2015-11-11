@@ -27,10 +27,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     c = @user.channels.build(name: @user.name, current: true)
-    favorites = @user.playlists.build(name: "favorites")
-    see_later = @user.playlists.build(name: "see later")
-
-    if @user.save && c.save && favorites.save && see_later.save
+    if @user.save && c.save
       session[:user_id] = @user.id
       redirect_to :root
     else

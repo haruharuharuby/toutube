@@ -28,12 +28,12 @@
           .icon
             = image_tag 'ic_add_black_24dp_1x.png'
           .button
-            = link_to "add", playlists_path, remote: true
+            = link_to "add", playlists_path(video:@video), remote: true, query: @video_id
         .button
           .icon
             = image_tag 'ic_share_black_24dp_1x.png'
           .button
-            = link_to "share", playlists_path, remote: true
+            = link_to "share", playlists_path, remote: true, query: @video.id
         .button
           .icon
             = image_tag 'ic_more_horiz_black_24dp_1x.png'
@@ -41,7 +41,7 @@
             = link_to "other...", playlists_path, remote: true
       .reputate-action-button
         = render partial: "reputations/reputation", locals: {video: @video}
-    .floating-add-button-action-container
+    .floating-playlist-add-action-container
 
   .candidate-container
     .contents
