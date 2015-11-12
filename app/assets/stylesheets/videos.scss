@@ -10,6 +10,11 @@ li
   list-style: none;
 }
 
+textarea
+{
+  @include container-border();
+}
+
 .page-container
 {
   display: flex;
@@ -68,4 +73,9 @@ li
 {
   @include container-border();
   position: relative;
+}
+
+.view-comments
+{
+  @include container-border();
 }

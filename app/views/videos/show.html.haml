@@ -42,7 +42,8 @@
       .reputate-action-button
         = render partial: "reputations/reputation", locals: {video: @video}
     .floating-playlist-add-action-container
-
+    .comments
+      = render partial: "comments/index", locals: {video: @video}
   .candidate-container
     .contents
       = render partial: "candidates", locals: {videos: Video.all}

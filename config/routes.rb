@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     member do
       post 'reputate'
     end
+    resources :comments
   end
 
   resources :channels do
@@ -28,9 +29,11 @@ Rails.application.routes.draw do
   end
 
   resources :playlists
-  
+  resources :comments
+
   resources :users do
     resources :channels
+    resources :comments
   end
 
 end

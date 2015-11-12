@@ -26,5 +26,5 @@
         %td= video.title
         %td= video.description
         %td= image_tag video.uri_url(:thumb) if video.uri?
-        %td= video.interactions
+        %td= video.rating.interactions
         %td= link_to 'Show', video

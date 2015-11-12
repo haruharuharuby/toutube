@@ -7,6 +7,8 @@ class Video < ActiveRecord::Base
   has_many :followed_users, through: :palylists, source: :user
   has_many :reputations
   has_many :reputated_users, through: :reputations, source: :user
+  has_many :comments
+  accepts_nested_attributes_for :comments
 
   attr_accessor :like, :dislike
   mount_uploader :uri, MyvideoUploader

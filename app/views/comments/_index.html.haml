@@ -1,0 +1,23 @@
+%h4 コメントを書く
+
+.new-comments
+  - c = video.comments.build(user_id: current_user)
+  = form_for c do |f|
+    .field
+      = f.hidden_field :user_id
+      = f.hidden_field :video_id
+      = f.text_area :body
+    .action
+      = f.submit "save"
+
+.view-comments
+  - video.comments.each do |c|
+    - if c.body
+      .comment-view
+        = link_to c.user.name, c.user
+      .comment-body
+        = c.body
+      .comment-action
+        = link_to 'Destroy', c, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %br
+%br
