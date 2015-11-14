@@ -3,16 +3,13 @@
     %ul
       %li
         .thumbnail
-          = image_tag video.uri_url(:thumb) if video.uri?
+          = link_to image_tag(video.uri_url(:thumb)), video
         .information
-          %b 'author'
-          = video.channel.name
-          %br
-          %b 'interactions'
+          = link_to video.title, video
+          作者
+          = link_to video.channel.name, channel_path(video.channel)
+          再生回数
           = video.rating.interactions
           %br
-          %b 'uploaded_at'
-          = video.created_at
+          = Time.at(Time.now - video.created_at.localtime).gmtime.strftime("%H:%M:%S")
           %br
-          %b
-          = link_to video.title, video

@@ -3,12 +3,11 @@
   .watch-container
     .contents
       =video_tag @video.uri, controls:true, size: "640x480"
+    .video-action-container
+      .video-title
+        %b=@video.title
 
-    .information
-      %b=@video.title
-    %br
-
-    .channel
+    .channel-container
       .channel-icon
       .channel-information
         %b=@video.channel.name
@@ -17,11 +16,9 @@
           = form_tag register_channel_path(@video.channel), method: :post do
             = hidden_field_tag 'register',action[:value]
             = submit_tag action[:text]
-
-      .interactions
-        %b 視聴回数:
-        =@video.rating.interactions
-
+        .interactions
+          %b 視聴回数:
+          =@video.rating.interactions
     .playlist
       .add-plylist-action
         .button

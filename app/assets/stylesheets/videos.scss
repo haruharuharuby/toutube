@@ -10,7 +10,7 @@ li
   list-style: none;
 }
 
-textarea
+textarea, input[type=text]
 {
   @include container-border();
   width: 100%;
@@ -21,11 +21,12 @@ textarea
   display: flex;
   .watch-container
   {
-    width: 70%;
+    width: 63%;
   }
   .candidate-container
   {
-    width: 30%;
+    width: 20%;
+    margin-left: 10px;
   }
 }
 
@@ -34,12 +35,28 @@ textarea
   display: flex;
   flex-wrap: wrap;
   @include container-border();
-  width: 100%
+  width: 100%;
+
+  .video-title
+  {
+    font-size: 200%;
+  }
 }
 
-.channel, .information
+.channel-information
+{
+  display: flex;
+  .interactions
+  {
+    margin-left: auto;
+  }
+}
+
+.information
 {
   @include container-border();
+  font-size: 30%;
+  line-height: 95%;
 }
 
 .playlist
@@ -93,9 +110,12 @@ textarea
 
 .new-comments
 {
+  margin-bottom: 25px;
+  clear: both;
   .action
   {
-    display: flex;
-    justify-content: flex-end;
+    position: relative;
+    top: -10px;
+    float: right;
   }
 }
