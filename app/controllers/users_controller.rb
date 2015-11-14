@@ -1,15 +1,11 @@
 class UsersController < ApplicationController
   before_action :require_user, only: [:show, :subscribe]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :home, :videos, :playlists, :channels, :description]
 
-  # GET /users
-  # GET /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
   end
 
@@ -35,8 +31,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -49,8 +43,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user.destroy
     respond_to do |format|
@@ -59,13 +51,35 @@ class UsersController < ApplicationController
     end
   end
 
+  def home
+    render :home
+  end
+
+  def videos
+    render :videos
+  end
+
+  def playlists
+    @see_lateres = Playlist.see_lateres(@user)
+    @favorites = Playlist.favorites(@user)
+    @custom_playlists = Playlist.custom_playlists(@user)
+    @likes = @user.reputations.where(status: Reputation.statuses[:like]).preload(:video)
+    render :playlists
+  end
+
+  def channels
+    render :channels
+  end
+
+  def description
+    render :description
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :password, channels_attributes: [:id, :name])
     end

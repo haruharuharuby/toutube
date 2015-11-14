@@ -36,6 +36,9 @@ class PlaylistsController < ApplicationController
     @new_playlist = current_user.playlists.build(video_id: params[:video])
   end
 
+  def show
+  end
+
   def create
     @playlist = Playlist.new(playlist_params)
     @playlist.save

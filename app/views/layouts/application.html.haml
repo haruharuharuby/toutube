@@ -44,7 +44,7 @@
           = link_to "Home", videos_path
         - if current_user
           %li
-            = link_to "My Channel", user_channel_path(current_user, current_user.channels.current.first)
+            = link_to "My Channel", user_path(current_user)
           %li
             = link_to "Registered channel", subscriptions_channels_path
           %li
@@ -53,6 +53,7 @@
             =link_to "See later", channel_path(current_user.channels.current.first), data: {view: "see lator"}
 
   .contents-container
+    = yield(:submenu)
     = yield
 
 .footer-container

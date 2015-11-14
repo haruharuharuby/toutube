@@ -29,11 +29,17 @@ Rails.application.routes.draw do
   end
 
   resources :playlists
+  resources :reputations
   resources :comments
 
   resources :users do
-    resources :channels
-    resources :comments
+    member do
+      get 'home'
+      get 'videos'
+      get 'playlists'
+      get 'channels'
+      get 'description'
+    end
   end
 
 end

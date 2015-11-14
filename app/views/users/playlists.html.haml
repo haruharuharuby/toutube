@@ -1,0 +1,56 @@
+%p#notice= notice
+
+%p
+  = content_for(:submenu) do
+    %ul
+      %li
+        = link_to "home", home_user_path(@user)
+      %li
+        = link_to "videos", videos_user_path(@user)
+      %li
+        = link_to "playlists", playlists_user_path(@user)
+      %li
+        = link_to "channels", channels_user_path(@user)
+      %li
+        = link_to "descriptions", description_user_path(@user)
+
+%p
+  %b Name:
+  = @user.name
+  .playlists-container
+    .see-later
+      "See later"
+      - if @see_lateres.any?
+        - @see_lateres.each do |s|
+          = image_tag s.video.uri_url(:thumb)
+          = link_to "show", playlist_path(s)
+      - else
+        %b
+        "Nothing"
+    .favorite
+      "favorites"
+      - if @favorites.any?
+        - @favorites.each do |f|
+          = image_tag f.video.uri_url(:thumb)
+          = link_to "show", playlist_path(f)
+      - else
+        %b
+        "Nothing"
+    .my-playlist
+      "my playlists"
+      - if @custom_playlists.any?
+        - @custom_playlists.each do |myplaylist|
+          = image_tag myplaylist.video.uri_url(:thumb)
+          = link_to "show", playlist_path(myplaylist)
+      - else
+        %b
+        "Nothing"
+    .likes
+      "likes"
+      - if @likes.any?
+        - @likes.each do |l|
+          = image_tag l.video.uri_url(:thumb)
+          = link_to "show", reputation_path(l)
+      - else
+        %b
+        "Nothing"
