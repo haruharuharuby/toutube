@@ -15,5 +15,8 @@
   .field
     = f.label :uri
     = f.file_field :uri
+  .field
+    - @video.channel = current_user.channels.current
+    = f.hidden_field :channel_id
   .actions
     = f.submit 'upload'

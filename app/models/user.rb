@@ -14,4 +14,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  def like_videos
+    @user.reputations.where(status: Reputation.statuses[:like]).preload(:video)
+  end
 end

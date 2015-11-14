@@ -50,7 +50,7 @@
           %li
             = link_to "History", channel_path(current_user), data: {view: "history"}
           %li
-            =link_to "See later", channel_path(current_user.channels.current.first), data: {view: "see lator"}
+            =link_to "See later", channel_path(current_user.channels.current), data: {view: "see lator"}
 
   .contents-container
     = yield(:submenu)

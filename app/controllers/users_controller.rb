@@ -9,17 +9,13 @@ class UsersController < ApplicationController
   def show
   end
 
-  # GET /users/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
     c = @user.channels.build(name: @user.name, current: true)
@@ -32,23 +28,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   def home
@@ -63,7 +52,7 @@ class UsersController < ApplicationController
     @see_lateres = Playlist.see_lateres(@user)
     @favorites = Playlist.favorites(@user)
     @custom_playlists = Playlist.custom_playlists(@user)
-    @likes = @user.reputations.where(status: Reputation.statuses[:like]).preload(:video)
+    @likes = @user.like_videos
     render :playlists
   end
 

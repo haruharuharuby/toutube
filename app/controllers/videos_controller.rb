@@ -7,24 +7,16 @@ class VideosController < ApplicationController
   end
 
   def show
-    if @video.rating == nil
-      r = Rating.new
-      r.video_id = @video.id
-      r.save
-      set_video
-    else
-      @video.rating.up()
-    end
+    @video.set_rating
+    @video.reload
   end
 
   def new
-    @video = current_user.channels.current.first.videos.build
+    @video = current_user.channels.current.videos.build
   end
 
   def create
-    @video = Video.new(video_params)
-    @video.user = current_user
-    @video.channel = current_user.channels.current.first
+    @video = current_user.videos.build(video_params)
     if @video.save
       redirect_to @video, notice: 'Video was successfully created.'
     else

@@ -6,5 +6,5 @@ class Channel < ActiveRecord::Base
     Subscription.where(user_id: user, channel_id:self).exists?
   end
 
-  scope :current, -> { where(current: true).uniq }
+  scope :current, -> { where(current: true).uniq.first }
 end

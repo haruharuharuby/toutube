@@ -17,4 +17,17 @@ class Video < ActiveRecord::Base
     return Video.where("title like ?", "%#{key}%")
   end
 
+  def set_rating
+    if self.rating
+      self.rating.up()
+    else
+      r = Rating.new
+      r.video_id = self.id
+      r.save
+    end
+  end
+
+  def set_channel(channel)
+    self.channel = channel
+  end
 end
