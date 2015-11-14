@@ -6,5 +6,10 @@ class Channel < ActiveRecord::Base
     Subscription.where(user_id: user, channel_id:self).exists?
   end
 
-  scope :current, -> { where(current: true).uniq.first }
+  def set_current(user)
+    user.channels.update_all("current = false")
+    self.current = true
+  end
+
+  scope :current_channel, -> { where(current: true).uniq.first }
 end

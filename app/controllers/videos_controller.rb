@@ -13,7 +13,7 @@ class VideosController < ApplicationController
   end
 
   def new
-    @video = current_user.channels.current.videos.build
+    @video = current_user.channels.current_channel.videos.build
   end
 
   def create

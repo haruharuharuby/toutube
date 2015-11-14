@@ -5,7 +5,6 @@ module PlaylistsHelper
     html << tag(:br)
     if playlist.any?
       playlist.each do |s|
-        html << s.name
         html << tag(:br)
         html << "#{link_to image_tag(s.video.uri_url(:thumb)), playlist_path(s)}"
       end
@@ -21,6 +20,7 @@ module PlaylistsHelper
     html << tag(:br)
     if reputation.any?
       reputation.each do |r|
+        html << tag(:br)
         html << "#{link_to image_tag(r.video.uri_url(:thumb)), reputation_path(r)}"
       end
     else

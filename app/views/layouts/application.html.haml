@@ -29,7 +29,7 @@
           = current_user.email
         - current_user.channels.each do |channel|
           .user-channel
-            = link_to channel.name, channel_path(channel)
+            = link_to display_channel_name(channel), change_channel_path(channel), method: :post
         .user-logout
           = button_to 'Logout', logout_path, method: :delete
     - else
@@ -50,7 +50,7 @@
           %li
             = link_to "History", channel_path(current_user), data: {view: "history"}
           %li
-            =link_to "See later", channel_path(current_user.channels.current), data: {view: "see lator"}
+            =link_to "See later", channel_path(current_user.channels.current_channel), data: {view: "see lator"}
 
   .contents-container
     = yield(:submenu)

@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
-  before_action :require_user
-  before_action :set_channel, only: [:show, :destroy, :register]
+  before_action :require_user, except: [:show]
+  before_action :set_channel, only: [:show, :destroy, :register, :change]
 
   def show
   end
@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
   def create
     @channel = Channel.new(channel_params)
     if @channel.save
-      redirect_to @channel, notice: 'Channel was successfully created.'
+      redirect_to :back, notice: 'Channel was successfully created.'
     else
       render :new
     end
@@ -35,6 +35,13 @@ class ChannelsController < ApplicationController
   def subscriptions
     @channels = current_user.my_favorite_channels
     render :index
+  end
+
+  def change
+    @channel.set_current(current_user)
+    @channel.save
+    @channel.reload
+    redirect_to :back
   end
 
   private
