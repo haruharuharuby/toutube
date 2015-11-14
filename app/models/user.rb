@@ -17,4 +17,12 @@ class User < ActiveRecord::Base
   def like_videos
     self.reputations.where(status: Reputation.statuses[:like]).preload(:video)
   end
+
+  def my_video?(video)
+    self.videos.exists?(video)
+  end
+  
+  def my_channel?(channel)
+    self.channels.exists?(channel)
+  end
 end

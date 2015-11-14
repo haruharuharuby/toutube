@@ -3,15 +3,15 @@ class Playlist < ActiveRecord::Base
   belongs_to :user
 
   def self.see_lateres(user)
-    Playlist.where(name: "See later", user_id: user).uniq.preload(:video)
+    Playlist.where(name: "See later", user: user).uniq.preload(:video)
   end
 
   def self.favorites(user)
-    Playlist.where(name: "favorite", user_id: user).uniq.preload(:video)
+    Playlist.where(name: "favorite", user: user).uniq.preload(:video)
   end
 
   def self.custom_playlists(user)
-    Playlist.where.not(name: ["See later", "favorite"], user_id: user).uniq.preload(:video)
+    Playlist.where.not(name: ["See later", "favorite"]).where(user: user).uniq.preload(:video)
   end
 
   def self.build_for_register(user, video_id)
@@ -34,14 +34,14 @@ class Playlist < ActiveRecord::Base
       p.push(new_favorite)
     end
 
-    user.playlists.where.not(name: ["See later", "favorite"]).uniq.each do |p|
-      custom_playlists = user.playlists.where(name: p.name, video_id: video_id)
+    user.playlists.where.not(name: ["See later", "favorite"]).uniq.each do |playlist|
+      custom_playlists = user.playlists.where(name: playlist.name, video_id: video_id)
       if custom_playlists.exists?
         # delete
         p.push(custom_playlists.first)
       else
         # add
-        new_custom_playlists = user.playlists.build(name: p.name, video_id: video_id)
+        new_custom_playlists = user.playlists.build(name: playlist.name, video_id: video_id)
         p.push(new_custom_playlists)
       end
     end
@@ -50,9 +50,5 @@ class Playlist < ActiveRecord::Base
 
   def self.new_playlist_build(user, video_id)
     user.playlists.build(video_id: video_id)
-  end
-
-  def aggregate(user)
-    Playlist.where(name: self.name, user_id: user)
   end
 end

@@ -70,6 +70,16 @@ textarea
   }
 }
 
+.playlist-actions
+{
+  @include container-border();
+  clear: both;
+  .field
+  {
+    float:left;
+  }
+}
+
 .floating-add-button-action-container
 {
   @include container-border();
@@ -79,4 +89,13 @@ textarea
 .view-comments
 {
   @include container-border();
+}
+
+.new-comments
+{
+  .action
+  {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

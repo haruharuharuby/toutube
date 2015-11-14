@@ -12,4 +12,5 @@ class Subscription < ActiveRecord::Base
       Subscription.where(user:user, channel:channel).first.destroy
     end
   end
+  
 end

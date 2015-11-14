@@ -24,8 +24,12 @@ class ChannelsController < ApplicationController
   end
 
   def register
-    Subscription.register(params[:register].to_i, current_user, @channel)
-    redirect_to :back
+    if current_user.my_channel?(@channel)
+      redirect_to :back, notice: 'Can not register your channel'
+    else
+      Subscription.register(params[:register].to_i, current_user, @channel)
+      redirect_to :back, notice: 'This channel is registered'
+    end
   end
 
   def subscriptions

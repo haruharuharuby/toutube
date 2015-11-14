@@ -13,6 +13,7 @@
     -else
       = link_to "unregister " + playlist.name, playlist, method: :delete
       %br
+  %hr
   .new-action
     = form_for new_playlist do |f|
       .field
