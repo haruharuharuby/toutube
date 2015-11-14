@@ -6,14 +6,8 @@ class CommentsController < ApplicationController
     @comments = Comment.all
   end
 
-  def show
-  end
-
   def new
     @comment = Comment.new
-  end
-
-  def edit
   end
 
   def create

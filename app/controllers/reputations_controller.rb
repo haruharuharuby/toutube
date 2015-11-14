@@ -1,29 +1,11 @@
 class ReputationsController < ApplicationController
   before_action :require_user
-  before_action :set_reputation, only: [:show, :edit, :update, :destroy]
-
-  def index
-  end
-
-  def show
-  end
-
-  def new
-  end
-
-  def edit
-  end
-
-  def create
-  end
+  before_action :set_reputation, only: [:update]
 
   def update
     @reputation.status = Reputation.statuses[params[:status]]
     @reputation.save
     redirect_to :back
-  end
-
-  def destroy
   end
 
 private

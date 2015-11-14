@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :require_user, only: [:new, :reputate]
+  before_action :require_user, only: [:new, :reputate, :create]
   before_action :set_video, except: [:index, :search, :new, :create]
 
   def index
@@ -21,14 +21,6 @@ class VideosController < ApplicationController
       redirect_to @video, notice: 'Video was successfully created.'
     else
       render :new
-    end
-  end
-
-  def update
-    if @video.update(video_params)
-      redirect_to @video, notice: 'Video was successfully updated.'
-    else
-      render :edit
     end
   end
 

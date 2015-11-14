@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_user, only: [:show, :subscribe]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :home, :videos, :playlists, :channels, :description]
+  before_action :require_user, except: [:create]
+  before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :playlists, :channels, :description]
 
   def index
     @users = User.all
@@ -11,9 +11,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-  end
-
-  def edit
   end
 
   def create
