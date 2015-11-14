@@ -2,8 +2,8 @@ class PlaylistsController < ApplicationController
   before_action :require_user
 
   def index
-    @playlists = Playlist.build_for_register(user)
-    @new_playlist = Playlist.new_playlist_build(user)
+    @playlists = Playlist.build_for_register(current_user, params[:video])
+    @new_playlist = Playlist.new_playlist_build(current_user, params[:video])
   end
 
   def show

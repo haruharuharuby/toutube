@@ -13,6 +13,7 @@ li
 textarea
 {
   @include container-border();
+  width: 100%;
 }
 
 .page-container
@@ -28,12 +29,12 @@ textarea
   }
 }
 
-.video-index-container
+.video-index-container, .channels-container
 {
   display: flex;
   flex-wrap: wrap;
   @include container-border();
-
+  width: 100%
 }
 
 .channel, .information

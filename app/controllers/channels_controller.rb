@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
   end
 
   def register
-    Subscription.register(params[:register].to_i)
+    Subscription.register(params[:register].to_i, current_user, @channel)
     redirect_to :back
   end
 

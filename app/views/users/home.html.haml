@@ -1,20 +1,8 @@
 %p#notice= notice
 
 %p
-  = content_for(:submenu) do
-    %ul
-      %li
-        = link_to "home", home_user_path(@user)
-      %li
-        = link_to "videos", videos_user_path(@user)
-      %li
-        = link_to "playlists", playlists_user_path(@user)
-      %li
-        = link_to "channels", channels_user_path(@user)
-      %li
-        = link_to "descriptions", description_user_path(@user)
-
-
+  = render partial: "my_menu", locals: {user: @user}
+  
 %p
   %b Name:
   = @user.name

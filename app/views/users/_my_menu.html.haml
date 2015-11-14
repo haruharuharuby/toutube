@@ -1,0 +1,13 @@
+= content_for(:submenu) do
+  .my-page-menu
+    %ul
+      %li
+        = link_to "home", home_user_path(user)
+      %li
+        = link_to "videos", videos_user_path(user)
+      %li
+        = link_to "playlists", playlists_user_path(user)
+      %li
+        = link_to "channels", channels_user_path(user)
+      %li
+        = link_to "descriptions", description_user_path(user)

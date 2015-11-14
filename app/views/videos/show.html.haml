@@ -3,25 +3,25 @@
   .watch-container
     .contents
       =video_tag @video.uri, controls:true, size: "640x480"
+
     .information
       %b=@video.title
     %br
+
     .channel
       .channel-icon
       .channel-information
         %b=@video.channel.name
         .channel-action
+          - action = channel_subscribe_action_param(@video, current_user)
           = form_tag register_channel_path(@video.channel), method: :post do
-            - if @video.channel.already_registered?(current_user)
-              = hidden_field_tag 'register', 0
-              = submit_tag 'unregister channel'
-            - else
-              = hidden_field_tag 'register', 1
-              = submit_tag 'register channel'
-        .channel-registeres
+            = hidden_field_tag 'register',action[:value]
+            = submit_tag action[:text]
+            
       .interactions
         %b 視聴回数:
         =@video.rating.interactions
+
     .playlist
       .add-plylist-action
         .button
@@ -39,11 +39,15 @@
             = image_tag 'ic_more_horiz_black_24dp_1x.png'
           .button
             = link_to "other...", playlists_path, remote: true
+
       .reputate-action-button
         = render partial: "reputations/reputation", locals: {video: @video}
+
     .floating-playlist-add-action-container
+
     .comments
       = render partial: "comments/index", locals: {video: @video}
+
   .candidate-container
     .contents
       = render partial: "candidates", locals: {videos: Video.all}
