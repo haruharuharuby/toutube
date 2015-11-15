@@ -43,6 +43,11 @@ textarea, input[type=text]
   }
 }
 
+.drop-down-container
+{
+    display:flex;
+}
+
 .channel-information
 {
   display: flex;
@@ -89,6 +94,7 @@ textarea, input[type=text]
 
 .playlist-actions
 {
+  margin-bottom: 10px;
   @include container-border();
   clear: both;
   .field
@@ -99,8 +105,8 @@ textarea, input[type=text]
 
 .floating-add-button-action-container
 {
+  margin-bottom: 10px;
   @include container-border();
-  position: relative;
 }
 
 .view-comments

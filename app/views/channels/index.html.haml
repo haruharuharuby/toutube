@@ -1,8 +1,5 @@
-.drop-down-container
-  %ul
-    %li
-      - @channels.each do |channel|
-        .channel-information
-          = link_to channel.name, channel_path(channel)
-          %br
-          = image_tag channel.videos.first.uri_url(:thumb)
+.channels-container
+  - @channels.each do |channel|
+    .channel-information
+      = link_to channel.name, channel_path(channel)
+      = image_tag channel.videos.first.uri_url(:thumb)

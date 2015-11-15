@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   end
 
   def channels
-    render :channels
+    redirect_to :back
   end
 
   def description
