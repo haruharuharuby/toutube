@@ -56,3 +56,5 @@ group :development do
   gem 'hirb'
   gem 'hirb-unicode'
 end
+
+gem 'rails_12factor', group: :production
