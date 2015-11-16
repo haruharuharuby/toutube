@@ -8,10 +8,10 @@
   = @user.name
   .playlists-container
     .see-later
-      = raw render_playlist_link("See later", @see_lateres)
+      = raw render_playlist_link("後で見る", @see_lateres)
     .favorite
-      = raw render_playlist_link("favorites", @favorites)
+      = raw render_playlist_link("お気に入り", @favorites)
     .my-playlist
-      = raw render_playlist_link("my playlists", @custom_playlists)
+      = raw render_playlist_link("マイプレイリスト", @custom_playlists)
     .likes
-      = raw render_reputation_link("likes", @likes)
+      = raw render_reputation_link("高く評価した動画", @likes)

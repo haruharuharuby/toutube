@@ -30,4 +30,8 @@ class Video < ActiveRecord::Base
   def set_channel(channel)
     self.channel = channel
   end
+
+  def self.recommends
+    Video.all
+  end
 end

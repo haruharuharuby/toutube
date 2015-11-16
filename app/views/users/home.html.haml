@@ -2,25 +2,8 @@
 
 %p
   = render partial: "my_menu", locals: {user: @user}
-  
+
 %p
   %b Name:
   = @user.name
-  .video-index-container
-    - @user.videos.each do |video|
-      %ul
-        %li
-          .thumbnail
-            = image_tag video.uri_url(:thumb) if video.uri?
-          .information
-            %b 'author'
-            = video.channel.name
-            %br
-            %b 'interactions'
-            = video.rating.interactions
-            %br
-            %b 'uploaded_at'
-            = video.created_at
-            %br
-            %b
-            = link_to video.title, video
+  = render partial: "videos/index", locals: {videos: @user.videos}

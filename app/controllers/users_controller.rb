@@ -46,15 +46,15 @@ class UsersController < ApplicationController
   end
 
   def playlists
-    @see_lateres = Playlist.see_lateres(@user)
-    @favorites = Playlist.favorites(@user)
-    @custom_playlists = Playlist.custom_playlists(@user)
+    @see_lateres = Playlist.get_see_later(@user)
+    @favorites = Playlist.get_see_later(@user)
+    @custom_playlists = Playlist.get_custom_playlists(@user)
     @likes = @user.like_videos
     render :playlists
   end
 
   def channels
-    redirect_to :back
+    render :channels
   end
 
   def description

@@ -40,6 +40,7 @@ textarea, input[type=text]
   .video-title
   {
     font-size: 200%;
+    padding: 5px
   }
 }
 
@@ -47,13 +48,16 @@ textarea, input[type=text]
 {
     display:flex;
 }
-
-.channel-information
+.channel-container
 {
-  display: flex;
-  .interactions
+  padding-bottom: 10px;
+  .channel-information
   {
-    margin-left: auto;
+    display: flex;
+    .interactions
+    {
+      margin-left: auto;
+    }
   }
 }
 
@@ -61,7 +65,7 @@ textarea, input[type=text]
 {
   @include container-border();
   font-size: 30%;
-  line-height: 95%;
+  line-height: 120%;
 }
 
 .playlist
@@ -95,7 +99,6 @@ textarea, input[type=text]
 .playlist-actions
 {
   margin-bottom: 10px;
-  @include container-border();
   clear: both;
   .field
   {
@@ -103,10 +106,9 @@ textarea, input[type=text]
   }
 }
 
-.floating-add-button-action-container
+.floating-playlist-add-action-container
 {
   margin-bottom: 10px;
-  @include container-border();
 }
 
 .view-comments
@@ -116,7 +118,7 @@ textarea, input[type=text]
 
 .new-comments
 {
-  margin-bottom: 25px;
+  padding-bottom: 10px;
   clear: both;
   .action
   {

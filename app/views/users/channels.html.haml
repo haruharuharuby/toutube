@@ -6,9 +6,12 @@
 %p
   %b User:
   = @user.name
-    %ul
-    .dro-container
-      %li
-        - @user.my_favorite_channels.each do |channel|
-          .channel-information
-            = link_to image_tag(channel.videos.first.uri_url(:thumb)) channel_path(channel)
+
+%p
+  登録チャンネル
+  .channels-container
+    - @user.my_favorite_channels.each do |c|
+      .channel-name
+        = c.name
+      .channel-link
+        = link_to image_tag(c.videos.first.uri_url(:thumb)), channel_path(c)

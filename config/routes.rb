@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   end
 
   resources :playlists, except: [:new, :edit, :update]
+  resources :reputations
   resources :comments, only: [:create, :update, :destroy]
 
   resources :users, except: [:index, :edit, :update] do

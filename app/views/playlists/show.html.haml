@@ -1,0 +1,2 @@
+- @videos.each.with_index do |video, index|
+  = video_tag video.uri, controls:true, size: "640x480", class: "playlist-video",id: index.to_s

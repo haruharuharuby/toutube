@@ -1,30 +1,26 @@
 module PlaylistsHelper
-  def render_playlist_link(title, playlist)
+  def render_playlist_link(title, p)
     html = ""
     html << title
     html << tag(:br)
-    if playlist.any?
-      playlist.each do |s|
-        html << tag(:br)
-        html << "#{link_to image_tag(s.video.uri_url(:thumb)), playlist_path(s)}"
-      end
+    if p.any?
+      html << tag(:br)
+      html << "#{link_to image_tag(p.first.video.uri_url(:thumb)), playlist_path(p.first)}"
     else
-      html << "Nothing"
+      html << "登録されていません"
     end
     return html
   end
 
-  def render_reputation_link(title, reputation)
+  def render_reputation_link(title, r)
     html = ""
     html << title
     html << tag(:br)
-    if reputation.any?
-      reputation.each do |r|
-        html << tag(:br)
-        html << "#{link_to image_tag(r.video.uri_url(:thumb)), reputation_path(r)}"
-      end
+    if r.any?
+      html << tag(:br)
+      html << "#{link_to image_tag(r.first.video.uri_url(:thumb)), reputation_path(r)}"
     else
-      html << "Nothing"
+      html << "登録されていません"
     end
     return html
   end

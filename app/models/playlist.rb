@@ -2,15 +2,15 @@ class Playlist < ActiveRecord::Base
   belongs_to :video
   belongs_to :user
 
-  def self.see_lateres(user)
-    Playlist.where(name: "See later", user: user).uniq.preload(:video)
+  def self.get_see_later(user)
+    Playlist.where(name: "See later", user: user).preload(:video)
   end
 
-  def self.favorites(user)
-    Playlist.where(name: "favorite", user: user).uniq.preload(:video)
+  def self.get_favorites(user)
+    Playlist.where(name: "favorite", user: user).preload(:video)
   end
 
-  def self.custom_playlists(user)
+  def self.get_custom_playlists(user)
     Playlist.where.not(name: ["See later", "favorite"]).where(user: user).uniq.preload(:video)
   end
 
@@ -46,6 +46,11 @@ class Playlist < ActiveRecord::Base
       end
     end
     return p
+  end
+
+  def find_video_by_name(user)
+    ids = Playlist.where(user:user, name: self.name).pluck(:video_id)
+    videos = Video.where(id: ids)
   end
 
   def self.new_playlist_build(user, video_id)

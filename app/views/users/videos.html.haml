@@ -6,20 +6,4 @@
 %p
   %b Name:
   = @user.name
-  .video-index-container
-    - @user.videos.each do |video|
-      %ul
-        %li
-          .thumbnail
-            = image_tag video.uri_url(:thumb) if video.uri?
-          .information
-            %b '作者'
-            = video.channel.name
-            %br
-            %b '再生回数'
-            = video.rating.interactions
-            %br
-            = Time.at(Time.now - video.created_at.localtime).gmtime.strftime("%H:%M:%S")
-            %br
-            %b
-            = link_to video.title, video
+  = render partial: "videos/index", locals: {videos: @user.videos}
