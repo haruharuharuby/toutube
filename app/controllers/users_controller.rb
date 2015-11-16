@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user, except: [:create]
+  before_action :require_user, except: [:new]
   before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :playlists, :channels, :description]
 
   def index
