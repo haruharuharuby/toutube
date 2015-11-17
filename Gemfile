@@ -25,12 +25,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails'
 
-gem 'carrierwave'
+gem 'fog'
+gem 'carrierwave', source: 'git://github.com/carrierwaveuploader/carrierwave.git'
 gem 'carrierwave-video-thumbnailer'
-gem "fog-aws"
 gem 'aws-sdk-core'
 gem 'aws-sdk-resources'
 gem 'devise'
+gem "figaro"
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
