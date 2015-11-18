@@ -14,7 +14,7 @@
         .channel-action
           - action = channel_subscribe_action_param(@video, current_user)
           = form_tag register_channel_path(@video.channel), method: :post do
-            = hidden_field_tag 'subscribe',action[:value]
+            = hidden_field_tag 'register',action[:value]
             = submit_tag action[:text]
         .interactions
           %b 視聴回数:
