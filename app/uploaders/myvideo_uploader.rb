@@ -19,7 +19,7 @@ class MyvideoUploader < CarrierWave::Uploader::Base
   end
 
   def png_name for_file, version_name
-    %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.png}.strip
+    %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.png}
   end
 
   # Include RMagick or MiniMagick support:
