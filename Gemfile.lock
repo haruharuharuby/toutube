@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: git://github.com/carrierwaveuploader/carrierwave.git/
   specs:
     CFPropertyList (2.3.2)
     actionmailer (4.2.4)
@@ -311,7 +312,7 @@ DEPENDENCIES
   aws-sdk-resources
   bcrypt (~> 3.1.7)
   byebug
-  carrierwave
+  carrierwave!
   carrierwave-video-thumbnailer
   coffee-rails (~> 4.1.0)
   devise
