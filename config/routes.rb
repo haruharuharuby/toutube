@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   # resources :comments, only: [:create, :update, :destroy]
 
   # 自分のマイページであれば、 resource :user do が適切
-  resources :users, except: [:index, :edit, :update] do
+  resource :user, except: [:index, :edit, :update] do
     member do
       get 'home'
       get 'videos'

@@ -24,4 +24,9 @@ class User < ActiveRecord::Base
   def my_channel?(channel)
     self.channels.exists?(channel)
   end
+
+  after_crete :create_initial_channel
+  def create_initial_channel
+    self.channels.create(name: self.name, current: true)
+  end
 end

@@ -2,10 +2,6 @@ class UsersController < ApplicationController
   before_action :require_user, except: [:create, :new]
   before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :playlists, :channels, :description]
 
-  def index
-    @users = User.all
-  end
-
   def show
   end
 
@@ -15,8 +11,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    c = @user.channels.build(name: @user.name, current: true)
-    if @user.save && c.save
+    if @user.save
       session[:user_id] = @user.id
       redirect_to :root
     else
@@ -63,7 +58,7 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     def user_params
