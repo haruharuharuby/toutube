@@ -19,20 +19,22 @@ Rails.application.routes.draw do
   end
 
   resources :channels, except: [:new, :edit, :update, :index] do
-    collection do
-      get 'subscriptions'
-    end
+    # collection do
+    #   get 'subscriptions'
+    # end
 
     member do
       post 'register'
-      post 'change'
+      # post 'change'
     end
   end
 
   resources :playlists, except: [:new, :edit, :update]
-  resources :reputations
-  resources :comments, only: [:create, :update, :destroy]
+  # resources :reputations
+  # comment は video だけにするので、うえの comments resouces で実装したい
+  # resources :comments, only: [:create, :update, :destroy]
 
+  # 自分のマイページであれば、 resource :user do が適切
   resources :users, except: [:index, :edit, :update] do
     member do
       get 'home'
