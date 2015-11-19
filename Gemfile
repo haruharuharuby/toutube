@@ -26,7 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml-rails'
 
 gem 'fog'
-gem 'carrierwave', source: 'git://github.com/carrierwaveuploader/carrierwave.git'
+gem 'carrierwave',github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave-video-thumbnailer'
 gem 'aws-sdk-core'
 gem 'aws-sdk-resources'

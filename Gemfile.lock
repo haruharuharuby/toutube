@@ -1,6 +1,15 @@
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 5b061c686ba8fc5fbf19ce3fecbf37e6410c1a0b
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
 GEM
   remote: https://rubygems.org/
-  remote: git://github.com/carrierwaveuploader/carrierwave.git/
   specs:
     CFPropertyList (2.3.2)
     actionmailer (4.2.4)
@@ -48,11 +57,6 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.0)
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
     carrierwave-video-thumbnailer (0.1.4)
       carrierwave
     coffee-rails (4.1.0)
