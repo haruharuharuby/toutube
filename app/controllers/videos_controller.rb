@@ -27,7 +27,7 @@ class VideosController < ApplicationController
 
   def destroy
     @video.destroy
-     redirect_to videos_url, notice: 'Video was successfully destroyed.'
+    redirect_to videos_url, notice: 'Video was successfully destroyed.'
   end
 
   def search

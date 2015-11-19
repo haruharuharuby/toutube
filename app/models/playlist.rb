@@ -1,5 +1,7 @@
 class Playlist < ActiveRecord::Base
-  belongs_to :video
+  has_many :videos, through: :video_playlists
+  has_many :video_playlists
+
   belongs_to :user
 
   def self.get_see_later(user)

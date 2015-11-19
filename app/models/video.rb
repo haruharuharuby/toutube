@@ -3,7 +3,8 @@ class Video < ActiveRecord::Base
   belongs_to :channel
   has_one :rating
   accepts_nested_attributes_for :rating
-  has_many :playlists
+  has_many :playlists, through: :video_playlists
+  has_many :video_playlists
   has_many :followed_users, through: :palylists, source: :user
   has_many :reputations
   has_many :reputated_users, through: :reputations, source: :user
