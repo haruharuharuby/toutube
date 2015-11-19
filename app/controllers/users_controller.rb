@@ -33,11 +33,9 @@ class UsersController < ApplicationController
   end
 
   def home
-    render :home
   end
 
   def videos
-    render :videos
   end
 
   def playlists
@@ -45,15 +43,12 @@ class UsersController < ApplicationController
     @favorites = Playlist.get_see_later(@user)
     @custom_playlists = Playlist.get_custom_playlists(@user)
     @likes = @user.like_videos
-    render :playlists
   end
 
   def channels
-    render :channels
   end
 
   def description
-    render :description
   end
 
   private
