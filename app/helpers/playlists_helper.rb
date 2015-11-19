@@ -1,15 +1,13 @@
 module PlaylistsHelper
-  def render_playlist_link(title, p)
-    html = ""
-    html << title
-    html << tag(:br)
-    if p.any?
-      html << tag(:br)
-      html << "#{link_to image_tag(p.first.video.uri_url(:thumb)), playlist_path(p.first)}"
-    else
-      html << "登録されていません"
+  def render_playlist_link(title, playlist)
+    content_tag(:div, class: 'playlist-content') do
+      result = content_tag(:div, title)
+      result << if playlist.any?
+        link_to image_tag(playlist.first.video.uri_url(:thumb)), playlist_path(playlist.first)
+      else
+        '登録されていません'
+      end
     end
-    return html
   end
 
   def render_reputation_link(title, r)
@@ -22,6 +20,6 @@ module PlaylistsHelper
     else
       html << "登録されていません"
     end
-    return html
+    return html.html_safe
   end
 end
