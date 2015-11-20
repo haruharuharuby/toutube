@@ -8,8 +8,6 @@ class VideosController < ApplicationController
 
   def show
     @video.set_rating
-    @video.reload
-    @comment = @video.comments.build(user: current_user)
   end
 
   def new
@@ -39,8 +37,8 @@ class VideosController < ApplicationController
     if current_user.my_video?(@video)
       redirect_to @video, notice: 'Can not add reputatation your video'
     else
-      Reputation.add(current_user, @video, params[:status].to_i)
-      @video.rating.update
+      # Reputation.add(current_user, @video, params[:status].to_i)
+      @video.reputate(current_user, params[:status])
       redirect_to @video, notice: 'Reputated this video'
     end
   end

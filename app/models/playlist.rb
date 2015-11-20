@@ -5,20 +5,20 @@ class Playlist < ActiveRecord::Base
   belongs_to :user
 
   def self.get_see_later(user)
-    Playlist.where(name: "See later", user: user).preload(:video)
+    self.where(name: "See later", user: user).preload(:video)
   end
 
   def self.get_favorites(user)
-    Playlist.where(name: "favorite", user: user).preload(:video)
+    self.where(name: "favorite", user: user).preload(:video)
   end
 
   def self.get_custom_playlists(user)
-    Playlist.where.not(name: ["See later", "favorite"]).where(user: user).uniq.preload(:video)
+    self.where.not(name: ["See later", "favorite"]).where(user: user).uniq.preload(:video)
   end
 
   def self.build_for_register(user, video_id)
     p = user.playlists.where(name: "XXXXX")
-    see_laters = user.playlists.where(name: "See later", video_id: video_id);
+    see_laters = user.playlists.where(name: "See later", video_id: video_id)
     if see_laters.exists?
       # delete
       p.push(see_laters.first)
@@ -28,7 +28,7 @@ class Playlist < ActiveRecord::Base
       p.push(new_see_later)
     end
 
-    favorites = user.playlists.where(name: "favorite", video_id: video_id);
+    favorites = user.playlists.where(name: "favorite", video_id: video_id)
     if favorites.exists?
       p.push(favorites.first)
     else

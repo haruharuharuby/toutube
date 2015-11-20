@@ -5,12 +5,12 @@
       =video_tag @video.uri, controls:true, size: "640x480"
     .video-action-container
       .video-title
-        %b=@video.title
+        %b= @video.title
 
     .channel-container
       .channel-icon
       .channel-information
-        %b=@video.channel.name
+        %b= @video.channel.name
         .channel-action
           - action = channel_subscribe_action_param(@video, current_user)
           = form_tag register_channel_path(@video.channel), method: :post do
@@ -18,7 +18,7 @@
             = submit_tag action[:text]
         .interactions
           %b 視聴回数:
-          =@video.rating.interactions
+          = @video.rating.interactions
     .playlist
       .add-plylist-action
         .button
@@ -38,13 +38,13 @@
             = link_to "other...", playlists_path, remote: true
 
       .reputate-action-button
-        = render partial: "reputations/reputation", locals: {video: @video}
+        = render "reputations/reputation", video: @video
 
     .floating-playlist-add-action-container
 
     .comments
-      = render partial: "comments/index", locals: {video: @video, comment: @comment}
+      = render "comments/index", video: @video, comment: @comment
 
   .candidate-container
     .contents
-      = render partial: "candidates", locals: {videos: Video.recommends}
+      = render "candidates", videos: Video.recommends

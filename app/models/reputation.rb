@@ -3,15 +3,20 @@ class Reputation < ActiveRecord::Base
   belongs_to :user
   enum status: { neither:0, like:1, dislike:2 }
 
-  def self.add(user, video, status)
-    r = Reputation.find_or_initialize_by(user_id: user, video_id: video)
-    if r.new_record?
-      r.user = user
-      r.video = video
-    end
+  # def self.add(user, video, status)
+  #   r = Reputation.find_or_initialize_by(user_id: user, video_id: video)
+  #   if r.new_record?
+  #     r.user = user
+  #     r.video = video
+  #   end
+  #
+  #   r.status = status
+  #   r.save
+  # end
 
-    r.status = status
-    r.save
+  after_save :update_video_rating
+  def update_video_rating
+    self.video.rating.update
   end
 
 end
