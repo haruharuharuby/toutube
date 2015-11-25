@@ -32,18 +32,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def subscriptions
-    @channels = current_user.my_favorite_channels
-    render :index
-  end
-
-  def change
-    @channel.set_current(current_user)
-    @channel.save
-    @channel.reload
-    redirect_to :back
-  end
-
   private
     def set_channel
       @channel = Channel.find(params[:id])

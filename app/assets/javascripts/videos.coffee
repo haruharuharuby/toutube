@@ -1,11 +1,11 @@
 $ ->
-  $(".user-information").css("display", "none")
+  $(".user-description").css("display", "none")
   $(".add-action-list").css("display", "none")
 
-  channels = $(".user-channel").length
-  $(".user-information").height(channels*30 + 50)
-  $(".user-icon").on "click", ->
-    $(".user-information").toggle()
+  channels = $(".user-description").length
+  $(".user-description").height(channels*30 + 50)
+  $(".user-menu").on "click", ->
+    $(".user-description").toggle()
 
   $(".add-play-list").on "click", ->
     $(".add-action-list").toggle()

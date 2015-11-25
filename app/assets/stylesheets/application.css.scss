@@ -68,5 +68,22 @@ body {
       height: $content-default-height;
       font-size: 50%;
     }
+    .user-description{
+      position: relative;
+      border: 1px solid darkgray;
+      border-radius: 5px;
+    }
+    .user-description:before
+    {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-bottom: 10px solid darkgray;
+      border-left: 0 solid transparent;
+      border-right: 0 solid transparent;
+      top: -10px;
+      margin-left: -10px;
+    }
   }
 }

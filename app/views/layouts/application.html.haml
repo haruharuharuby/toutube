@@ -25,12 +25,12 @@
       .user-menu.pull-right
         - if current_user
           .icon.glyphicon.glyphicon-user
-          .contents
+          .user-description
             .email
               = current_user.email
             - current_user.channels.each do |channel|
               .channel
-                = link_to display_channel_name(channel), change_channel_path(channel), method: :post
+                = link_to display_channel_name(channel), channel_path(channel), method: :post
             .logout.action
               = button_to 'ログアウト', logout_path, method: :delete
         - else
@@ -45,9 +45,9 @@
           = link_to "Home", videos_path
         - if current_user
           %li
-            = link_to "My Channel", user_path(current_user)
+            = link_to "My Channel", user_path
           %li
-            = link_to "Subscribed channel", subscriptions_channels_path
+            = link_to "登録チャンネル", subscriptions_user_path
           %li
             = link_to "History", channel_path(current_user), data: {view: "history"}
           %li

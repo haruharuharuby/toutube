@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user, except: [:create, :new]
-  before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :playlists, :channels, :description]
+  before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :subscriptions, :playlists, :channels, :description]
 
   def show
   end
@@ -36,6 +36,9 @@ class UsersController < ApplicationController
   end
 
   def videos
+  end
+
+  def subscriptions
   end
 
   def playlists
