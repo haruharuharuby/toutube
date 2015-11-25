@@ -7,38 +7,39 @@
   = csrf_meta_tags
 %body
 
-.header-container
-  .toutube-logo-container
-    TouTube
+%nav.navbar.navbar-default
+  .top-bar.container-fluid
+    .logo.col-md-2.col-md-offset-0.side-bar-toggle
+      .menu.glyphicon.glyphicon-align-justify
+        = link_to "t-tube", videos_path
+    .search.col-md-6.action
+      = form_tag search_videos_path, method: :get do
+        = text_field_tag 'search_keyword'
+        = button_tag class: "btn btn-default", name:"aaa", value:"bbb" do
+          %i.glyphicon.glyphicon-search
+    .user.col-md-4
+      .upload.pull-right.action
+        = button_to "アップロード",new_video_path, method: :get
+      .signup.pull-right.action
+        = button_to 'サインアップ', signup_path, method: :get
+      .user-menu.pull-right
+        - if current_user
+          .icon.glyphicon.glyphicon-user
+          .contents
+            .email
+              = current_user.email
+            - current_user.channels.each do |channel|
+              .channel
+                = link_to display_channel_name(channel), change_channel_path(channel), method: :post
+            .logout.action
+              = button_to 'ログアウト', logout_path, method: :delete
+        - else
+          .login.action
+            = button_to 'ログイン', login_path, method: :get
 
-  .search-bar-container
-    = form_tag search_videos_path, method: :get  do
-      = text_field_tag 'search_keyword'
-      = submit_tag 'search'
-
-  .user-container
-    .upload-container
-      = button_to 'Upload', new_video_path, method: :get
-    .signup
-      = button_to 'Sign up', signup_path, method: :get
-    - if current_user
-      .user-icon
-        = image_tag("user-icon.png", size: "32x32")
-      .user-information
-        .user-email
-          = current_user.email
-        - current_user.channels.each do |channel|
-          .user-channel
-            = link_to display_channel_name(channel), change_channel_path(channel), method: :post
-        .user-logout
-          = button_to 'Logout', logout_path, method: :delete
-    - else
-      .user-login
-        = button_to 'Login', login_path, method: :get
-
-.menu-and-contantes-container
-  .left-menu-container
-    %nav
+.main-container.container-fluid
+  .side-bar.col-md-2
+    %nav.side-bar.nav.nav-pilles.nav-stacked
       %ul
         %li
           = link_to "Home", videos_path
@@ -51,9 +52,6 @@
             = link_to "History", channel_path(current_user), data: {view: "history"}
           %li
             =link_to "See later", channel_path(current_user.channels.current_channel), data: {view: "see lator"}
-
-  .contents-container
+  .contents.col-md-10
     = yield(:submenu)
     = yield
-
-.footer-container

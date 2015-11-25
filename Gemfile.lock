@@ -48,6 +48,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
+    autoprefixer-rails (6.1.0.1)
+      execjs
+      json
     aws-sdk-core (2.2.0)
       jmespath (~> 1.0)
     aws-sdk-resources (2.2.0)
@@ -55,6 +58,9 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.5.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.3.0)
     builder (3.2.2)
     byebug (8.2.0)
     carrierwave-video-thumbnailer (0.1.4)
@@ -315,6 +321,7 @@ DEPENDENCIES
   aws-sdk-core
   aws-sdk-resources
   bcrypt (~> 3.1.7)
+  bootstrap-sass
   byebug
   carrierwave!
   carrierwave-video-thumbnailer
