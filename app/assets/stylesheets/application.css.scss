@@ -13,11 +13,6 @@
  *= require_tree .
  *= require_self
  */
-$content-default-height: 25px;
-@mixin content-vartical-align-center {
-  padding-top: 10px;
-}
-
 html
 {
   -webkit-box-sizing: border-box;
@@ -40,50 +35,110 @@ body {
  	font-size: 15px;
 }
 
-.top-bar{
-  .logo{
-    margin-top: 5px;
-    @include content-vartical-align-center();
-    font-size: 100%;
+$screen-xs-min: 400px;
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+
+@media (min-width: $screen-xs-min) {
+  .home-button{
+    display: block;
+    text-indent: -5000px;
+    background: no-repeat url("ito-tube-logo-xs.png");
+    background-size: contain;
+    width: 60px;
   }
 
-  .search{
-    @include content-vartical-align-center();
-    input[type=text]{
-      width: 80%;
-      height: $content-default-height;
-    }
+  .user-description
+  {
+    left: 0px;
+  }
+}
 
-    button{
-      border: 2px, solid, darkgray;
-      padding: 1px;
-      margin-bottom: 3px;
-      width: 70px;
-    }
+@media (min-width: $screen-sm-min) {
+  .home-button{
+    display: block;
+    text-indent: -5000px;
+    background: no-repeat url("ito-tube-logo.png");
+    background-size: contain;
+    width: 125px;
   }
 
-  .user{
-    @include content-vartical-align-center();
-    input[type=submit]{
-      height: $content-default-height;
-      font-size: 50%;
+  .user-description
+  {
+    left: -20px;
+  }
+}
+
+header{
+  ul.video-menu{
+    display: block;
+    width: 50%;
+    li{
+      float: left;
     }
-    .user-description{
-      position: relative;
+    li.button-icon{
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+    li.logo-top-link{
+      margin-top: 4px;
+    }
+    li.search{
+      margin-left: 5px;
+    }
+    li input[type=text]{
+      height: 34px;
       border: 1px solid darkgray;
-      border-radius: 5px;
+      border-radius: 4px;
     }
-    .user-description:before
-    {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-bottom: 10px solid darkgray;
-      border-left: 0 solid transparent;
-      border-right: 0 solid transparent;
-      top: -10px;
-      margin-left: -10px;
+  }
+  .navbar{
+    min-height: 0;
+    height: auto;
+  }
+
+  ul.user-menu{
+    .login{
+      .user-container
+      {
+        margin-right: 5px;
+        .user-icon{
+          display: table-cell;
+        	vertical-align: middle;
+          text-align: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: hsl(36,100%,80%);
+        }
+        .logout{
+          border-top: 1px solid darkgray;
+        }
+      }
+      .user-description{
+        position: absolute;
+        margin-top: 10px;
+        border-radius: 4px;
+        background-color: hsl(36,100%,80%);
+        .email{
+          padding: 5px;
+        }
+        a{
+          padding: 5px;
+        }
+      }
+      .user-description:after{
+        content: '';
+        position: absolute;
+        margin-left: 10px;
+        border-top: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-bottom: 10px solid hsl(36,100%,80%);
+        width: 0;
+        height: 0;
+        bottom: 100%;
+      }
     }
   }
 }

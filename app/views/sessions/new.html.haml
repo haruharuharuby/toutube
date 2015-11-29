@@ -1,14 +1,14 @@
-.login-form
-  = form_for :session, url: login_path do |f|
-
+.container
+  = form_for :session, url: login_path, html: {class: "form-signin"} do |f|
+    %h2.form-signin-heading ログイン
     .field
-      = f.label :name
-      = f.text_field :name
+      = f.label :name, class: "sr-only"
+      = f.text_field :name, class: "form-control", placeholder: "Name"
     .field
-      = f.label :email
-      = f.email_field :email
+      = f.label :email, class: "sr-only"
+      = f.email_field :email, class: "form-control", placeholder: "E-mail address"
     .field
-      = f.label :password
-      = f.password_field :password
+      = f.label :password, class: "sr-only"
+      = f.password_field :password, class: "form-control", placeholder: "Password"
     .actions
-      = f.submit 'log in'
+      = f.submit 'ログイン', class: "btn btn-lg btn-primary btn-block"

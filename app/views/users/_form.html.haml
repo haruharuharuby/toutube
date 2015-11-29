@@ -1,19 +1,21 @@
-.new-user
-  = form_for @user, url: user_path do |f|
+.container
+  = form_for @user, url:user_path, html: {class: "form-signin"} do |f|
     - if @user.errors.any?
       #error_explanation
-        %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+        %h2= "#{pluralize(@user.errors.count, "error")} サインアップに失敗しました"
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg
+
+    %h2.form-signin-heading サインアップ
     .field
-      = f.label :name
-      = f.text_field :name
+      = f.label :name, class: "sr-only"
+      = f.text_field :name, class: "form-control", placeholder: "Name"
     .field
-      = f.label :email
-      = f.text_field :email
+      = f.label :email, class: "sr-only"
+      = f.email_field :email, class: "form-control", placeholder: "E-mail address"
     .field
-      = f.label :password
-      = f.password_field :password
+      = f.label :password, class: "sr-only"
+      = f.password_field :password, class: "form-control", placeholder: "Password"
     .actions
-      = f.submit 'sign up'
+      = f.submit 'サインアップ', class: "btn btn-lg btn-primary btn-block"
