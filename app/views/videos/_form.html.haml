@@ -1,22 +1,22 @@
-= form_for @video do |f|
+= form_for @video, html: {class: "video-upload"} do |f|
   - if @video.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
+      %h2= "#{pluralize(@video.errors.count, "error")} アップロードできませんでした。"
       %ul
         - @video.errors.full_messages.each do |msg|
           %li= msg
-
+  %h2.form-signin-heading アップロード
   .field
-    = f.label :title
-    = f.text_field :title
+    = f.label :title, class: "sr-only"
+    = f.text_field :title, class: "form-control", placeholder: "Title"
   .field
-    = f.label :description
-    = f.text_area :description
+    = f.label :description, class: "sr-only"
+    = f.text_area :description, class: "form-control", placeholder: "Description"
   .field
-    = f.label :uri
-    = f.file_field :uri
+    = f.label :uri, class: "sr-only"
+    = f.file_field :uri, class: "form-control"
   .field
     - @video.channel = current_user.channels.current_channel
     = f.hidden_field :channel_id
   .actions
-    = f.submit 'upload'
+    = f.submit 'upload', class: "btn btn-lg btn-primary btn-block"

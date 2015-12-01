@@ -1,6 +1,7 @@
 $ ->
   $(".user-description").css("display", "none")
   $(".add-action-list").css("display", "none")
+  $(".left-side-menu").css("display", "none")
 
   channels = $(".user-description").length
   $(".user-description").height(channels*30 + 50)
@@ -12,3 +13,6 @@ $ ->
 
   $(".add-button-action-container").on "click", ->
     $(this).toggle()
+
+  $(".toggle-side-menu").on "click", ->
+    $(".left-side-menu").toggle()

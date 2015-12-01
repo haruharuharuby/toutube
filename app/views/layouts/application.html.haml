@@ -8,11 +8,11 @@
 %body
 
 %header
-  %nav.navbar.navbar-default
+  %nav.nav
     .container-fluid
       %ul.video-menu.nav.navbar-nav
         %li.button-icon
-          = button_tag class: "btn navbar-btn btn-default" do
+          = button_tag class: "toggle-side-menu btn navbar-btn btn-default" do
             %span.glyphicon.glyphicon-align-justify
         %li.logo-top-link
           = link_to "dfadsfdsafads", videos_path, class: "home-button"
@@ -41,55 +41,74 @@
               .logout
                 = link_to 'ログアウト', logout_path, method: :delete
 
-.main
-  = yield
+.body
+  .container-fluid
+    .left-side-menu.col-md-2
+      - unless current_user
+        %nav.navbar
+          %ul.nav.nav-stacked
+            %li.home
+              .glyphicon.glyphicon-home
+              %span ホーム
 
--#     .collapse.navbar-collapse
--#
--#       .logo.col-md-2.col-md-offset-0.side-bar-toggle
--#         .menu.glyphicon.glyphicon-align-justify
--#
--#       .search.col-md-6.action
--#         = form_tag search_videos_path, method: :get do
--#           = text_field_tag 'search_keyword'
--#           = button_tag class: "btn btn-default", name:"aaa", value:"bbb" do
--#             %i.glyphicon.glyphicon-search
--#
--#       .user.col-md-4
--#         .upload.action
--#           = button_to "アップロード",new_video_path, method: :get
--#         .signup.action
--#           = button_to 'サインアップ', signup_path, method: :get
--#         .user-menu
--#           - if current_user
--#             .icon.glyphicon.glyphicon-user
--#             .user-description
--#               .email
--#                 = current_user.email
--#               - current_user.channels.each do |channel|
--#                 .channel
--#                   = link_to display_channel_name(channel), channel_path(channel), method: :post
--#               .logout.action
--#                 = button_to 'ログアウト', logout_path, method: :delete
--#           - else
--#             .login.action
--#               = button_to 'ログイン', login_path, method: :get
--#
--# .main-container.container-fluid
--#   .side-bar.col-md-2
--#     %nav.side-bar.nav.nav-pilles.nav-stacked
--#       %ul
--#         %li
--#           = link_to "Home", videos_path
--#         - if current_user
--#           %li
--#             = link_to "My Channel", user_path
--#           %li
--#             = link_to "登録チャンネル", subscriptions_user_path
--#           %li
--#             = link_to "History", channel_path(current_user), data: {view: "history"}
--#           %li
--#             =link_to "See later", channel_path(current_user.channels.current_channel), data: {view: "see lator"}
--#   .contents.col-md-10
--#     = yield(:submenu)
--#     = yield
+          .categoriy
+            BEST OF ITOTUBE
+
+          %ul.nav.navbar-stacked
+            %li.popularity
+              .glyphicon.glyphicon-star-empty
+              %span ito-tubeで人気
+            %li.allchannnels
+              .glyphicon.glyphicon-plus-sign
+              %span チャンネル一覧
+            %li.login
+              = link_to 'ログイン', login_path, class:"btn-xs btn-primary"
+      - else
+        %nav.navbar
+          %ul.nav.nav-stacked
+            %li.home
+              .glyphicon.glyphicon-home
+              %span ホーム
+            %li.mychannel
+              .glyphicon.glyphicon-user
+              %span マイチャンネル
+            %li.subscriptions
+              .glyphicon.glyphicon-inbox
+              %span 登録チャンネル
+            %li.history
+              .glyphicon.glyphicon-hourglass
+              %span 履歴
+            %li.later
+              .glyphicon.glyphicon-dashboard
+              %span 後で見る
+
+          .playlist
+            再生リスト
+          %ul.nav.nav-stacked
+            - current_user.playlists.each do |playlist|
+                - if playlist.is_like?
+                  %li.playlist-likes
+                    .glyphicon.glyphicon-thumbs-up
+                    %span 高く評価した動画
+                - else
+                  %li.#{playlist.name}
+                    .glyphicon.glyphicon-menu-hamburger
+                    %span #{playlist.display_name}
+
+          .subscriptions-list
+          %ul.nav.nav-stacked
+            - current_user.subscriptions.each do |channel|
+              %li.#{channel.name}
+                .channel
+                  %span #{channel.display_name}
+
+          %ul.nav.navbar-stacked
+            %li.allchannnels
+              .glyphicon.glyphicon-plus-sign
+              %span チャンネル一覧
+            %li.management_subscriptions
+              .glyphicon.glyphicon-cog
+              %span 登録リストを管理
+
+    .contents.col-md-10
+      = yield
