@@ -1,15 +1,17 @@
-.video-index-container
+.video-list
   - videos.each do |video|
-    %ul
+    %ul.list-inline
       %li
         .thumbnail
           = link_to image_tag(video.uri_url(:thumb)), video
         .information
-          = link_to video.title, video
-          作者
-          = link_to video.channel.name, channel_path(video.channel)
-          再生回数
-          = video.rating.interactions
-          %br
-          = Time.at(Time.now - video.created_at.localtime).gmtime.strftime("%H:%M:%S")
-          %br
+          .title
+            = link_to video.title, video
+          .author
+            作者
+            = link_to video.channel.name, channel_path(video.channel)
+          .view-count
+            視聴回数
+            = video.view_count
+            *
+            = Time.at(Time.now - video.created_at.localtime).gmtime.strftime("%H:%M:%S")

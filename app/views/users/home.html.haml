@@ -1,9 +1,13 @@
-%p#notice= notice
+.menu
+  .user-menu
+    %nav.home-menu.navbar-nav
+      %ul.nav.navbar-nav
+        %li.home
+          = link_to "home", home_user_path
+        %li.subscriptions
+          = link_to "登録チャンネル", channels_path
 
-%p
-  = render partial: "my_menu", locals: {user: @user}
-
-%p
-  %b Name:
-  = @user.name
+.video-contents
   = render partial: "videos/index", locals: {videos: @user.videos}
+
+%p#notice= notice

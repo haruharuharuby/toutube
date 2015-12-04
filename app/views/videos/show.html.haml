@@ -1,14 +1,12 @@
 %p#notice= notice
-.page-container
-  .watch-container
-    .contents
-      =video_tag @video.uri, controls:true, size: "640x480"
-    .video-action-container
-      .video-title
-        %b= @video.title
-
-    .channel-container
+.container
+  .main-screen.col-md-10
+    =video_tag @video.uri, controls:true, size: "640x480"
+    .video-title
+      %b= @video.title
+    .channel
       .channel-icon
+        .glyphicon.glyphicon-film
       .channel-information
         %b= @video.channel.name
         .channel-action
@@ -16,35 +14,51 @@
           = form_tag register_channel_path(@video.channel), method: :post do
             = hidden_field_tag 'subscribe',action[:value]
             = submit_tag action[:text]
-        .interactions
-          %b 視聴回数:
-          = @video.rating.interactions
-    .playlist
-      .add-plylist-action
-        .button
-          .icon
-            = image_tag 'ic_add_black_24dp_1x.png'
-          .button
-            = link_to "add", playlists_path(video:@video), remote: true, query: @video_id
-        .button
-          .icon
-            = image_tag 'ic_share_black_24dp_1x.png'
-          .button
-            = link_to "share", playlists_path, remote: true, query: @video.id
-        .button
-          .icon
-            = image_tag 'ic_more_horiz_black_24dp_1x.png'
-          .button
-            = link_to "other...", playlists_path, remote: true
 
-      .reputate-action-button
-        = render "reputations/reputation", video: @video
+      .playlist
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = @video.view_count
+            
+        %ul.nav.navbar-nav
+          %li
+            .glyphicon.glyphicon-plus
+              = link_to "add", playlists_path(video:@video), remote: true, query: @video_id
+          %li
+            .glyphicon.glyphicon-share
+              = link_to "share", playlists_path, remote: true, query: @video.id
+          %li
+            .glyphicon.glyphicon-option-horizontal
+              = link_to "other...", playlists_path, remote: true
 
-    .floating-playlist-add-action-container
+      .reputate
+        .like
+          .glyphicon.glyphicon-thumbs-up
+        .dislike
+          .glyphicon.glyphicon-thumbs-down
+      .floating-playlist-add-action-container
 
-    .comments
-      = render "comments/index", video: @video, comment: @comment
+      .comments
+        コメントを書く
+        .new-comment
+          = form_for @video.comments.build, url: video_comments_path(@video) do |f|
+            .field
+              = f.hidden_field :user_id
+              = f.hidden_field :video_id
+              = f.text_field :body
+            .action
+              = f.submit "post"
 
-  .candidate-container
+        .view-comments
+          - @video.comments.order("id desc").each do |c|
+            - if c.body
+              .comment-view
+                = link_to c.user.name, c.user
+              .comment-body
+                = c.body
+              .comment-action
+                = link_to 'Destroy', c, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  .candidate.col-md-2
     .contents
       = render "candidates", videos: Video.recommends

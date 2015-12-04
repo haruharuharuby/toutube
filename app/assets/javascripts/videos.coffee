@@ -16,3 +16,11 @@ $ ->
 
   $(".toggle-side-menu").on "click", ->
     $(".left-side-menu").toggle()
+    if $(".left-side-menu").css("display") == 'none'
+      $(".contents").addClass("container-fluid")
+      $(".contents").removeClass("col-md-10")
+    else
+      $(".contents").addClass("col-md-10")
+      $(".contents").removeClass("container-fluid")
+      $(".contents").css("padding-left", "0")
+      $(".contents").css("padding-right", "0")

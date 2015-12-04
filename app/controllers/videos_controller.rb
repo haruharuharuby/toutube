@@ -7,7 +7,6 @@ class VideosController < ApplicationController
   end
 
   def show
-    @video.set_rating
   end
 
   def new

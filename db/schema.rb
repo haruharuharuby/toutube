@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106025235) do
+ActiveRecord::Schema.define(version: 20151201153001) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -29,30 +29,20 @@ ActiveRecord::Schema.define(version: 20151106025235) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "playlist_video_relations", force: :cascade do |t|
+    t.string   "video_id",    limit: 255
+    t.integer  "playlist_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "playlists", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "user_id",    limit: 4
-    t.integer  "video_id",   limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "ratings", force: :cascade do |t|
-    t.integer  "likes",        limit: 4, default: 0, null: false
-    t.integer  "dislikes",     limit: 4, default: 0, null: false
-    t.integer  "neigher",      limit: 4, default: 0, null: false
-    t.integer  "interactions", limit: 4, default: 0, null: false
+    t.string   "name",         limit: 255
+    t.integer  "plylist_type", limit: 4
+    t.integer  "user_id",      limit: 4
     t.integer  "video_id",     limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-  end
-
-  create_table "reputations", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "video_id",   limit: 4
-    t.integer  "status",     limit: 4, default: 0, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -76,8 +66,11 @@ ActiveRecord::Schema.define(version: 20151106025235) do
     t.string   "uri",         limit: 255
     t.integer  "user_id",     limit: 4
     t.integer  "channel_id",  limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "likes",       limit: 4,     default: 0, null: false
+    t.integer  "dislikes",    limit: 4,     default: 0, null: false
+    t.integer  "view_count",  limit: 4,     default: 0, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
 end

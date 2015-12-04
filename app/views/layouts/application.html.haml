@@ -51,7 +51,7 @@
               .glyphicon.glyphicon-home
               %span ホーム
 
-          .categoriy
+          .category
             BEST OF ITOTUBE
 
           %ul.nav.navbar-stacked
@@ -86,21 +86,23 @@
             再生リスト
           %ul.nav.nav-stacked
             - current_user.playlists.each do |playlist|
-                - if playlist.is_like?
-                  %li.playlist-likes
-                    .glyphicon.glyphicon-thumbs-up
-                    %span 高く評価した動画
-                - else
-                  %li.#{playlist.name}
-                    .glyphicon.glyphicon-menu-hamburger
-                    %span #{playlist.display_name}
+              - if playlist.like?
+                %li.playlist-likes
+                  .glyphicon.glyphicon-thumbs-up
+                  %span 高く評価した動画
+              - else
+                %li.playlist-other
+                  .glyphicon.glyphicon-menu-hamburger
+                  %span #{playlist.name}
 
-          .subscriptions-list
+          .subscriptions
+            登録チャンネル
+
           %ul.nav.nav-stacked
             - current_user.subscriptions.each do |channel|
-              %li.#{channel.name}
+              %li.channel-subscriptions
                 .channel
-                  %span #{channel.display_name}
+                  %span #{channel.name}
 
           %ul.nav.navbar-stacked
             %li.allchannnels
@@ -110,5 +112,5 @@
               .glyphicon.glyphicon-cog
               %span 登録リストを管理
 
-    .contents.col-md-10
+    .contents.container-fluid
       = yield
