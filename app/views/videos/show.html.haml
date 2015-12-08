@@ -1,64 +1,64 @@
-%p#notice= notice
-.container
-  .main-screen.col-md-10
-    =video_tag @video.uri, controls:true, size: "640x480"
-    .video-title
-      %b= @video.title
-    .channel
-      .channel-icon
-        .glyphicon.glyphicon-film
-      .channel-information
-        %b= @video.channel.name
-        .channel-action
-          - action = channel_subscribe_action_param(@video, current_user)
-          = form_tag register_channel_path(@video.channel), method: :post do
-            = hidden_field_tag 'subscribe',action[:value]
-            = submit_tag action[:text]
-
-      .playlist
-        %ul.nav.navbar-nav.navbar-right
-          %li
-            = @video.view_count
-            
-        %ul.nav.navbar-nav
-          %li
-            .glyphicon.glyphicon-plus
-              = link_to "add", playlists_path(video:@video), remote: true, query: @video_id
-          %li
-            .glyphicon.glyphicon-share
-              = link_to "share", playlists_path, remote: true, query: @video.id
-          %li
-            .glyphicon.glyphicon-option-horizontal
-              = link_to "other...", playlists_path, remote: true
-
-      .reputate
-        .like
-          .glyphicon.glyphicon-thumbs-up
-        .dislike
-          .glyphicon.glyphicon-thumbs-down
+.page.container
+  .watch.col-md-8
+    .row.screen
+      =video_tag @video.uri, controls:true, size:"730x408"
+    .channel-border
+      .row.video-title
+        %h2 #{@video.title}
+      .row.channel
+        .symbol.col-md-1.glyphicon.glyphicon-film
+        .operation.col-md-5
+          .name
+            = link_to @video.channel.name, channel_path(@video.channel)
+          .row.subscribe-action
+            %small
+              .action.col-md-7.col-xd-10.col-xs-12.glyphicon.glyphicon-play
+                - subscription = current_user.subscriptions.where(channel: @video.channel).first
+                - if subscription
+                  %b= link_to "チャンネル登録を解除する", user_subscription_path(subscription), method: :delete, data:{confirm: "本当に解除しますか?"}
+                - else
+                  %b= link_to "チャンネル登録", user_subscriptions_path(current_user.subscriptions.build(channel: @video.channel))
+              .subscribe-count.col-md-4
+                000,000,000
+            -# #{@video.channel.subscriptions.count}
+        .view-count-container.col-md-2.col-md-offset-3
+          .empty
+          .view-count
+            000,000,000
+          -# = @video.view_count
+      .row.playlist
+        .add.col-md-2.glyphicon.glyphicon-plus
+          = link_to "追加", playlists_path(video:@video), remote: true, query: @video_id
+        .share.col-md-2.glyphicon.glyphicon-share
+          = link_to "共有", playlists_path, remote: true, query: @video.id
+        .glyphicon.col-md-2.glyphicon-option-horizontal
+          = link_to "その他", playlists_path, remote: true
+        .like.col-md-2.col-md-offset-2.glyphicon.glyphicon-thumbs-up
+          %small 000,000
+        .dislike.col-md-2.glyphicon.glyphicon-thumbs-down
+          %small 000,000
       .floating-playlist-add-action-container
 
-      .comments
-        コメントを書く
-        .new-comment
-          = form_for @video.comments.build, url: video_comments_path(@video) do |f|
-            .field
-              = f.hidden_field :user_id
-              = f.hidden_field :video_id
-              = f.text_field :body
-            .action
-              = f.submit "post"
+    .comments
+      %small すべてのコメント (#{@video.comments.length})
+      .new-comment
+        = form_for @video.comments.build, url: video_comments_path(@video) do |f|
+          .field
+            = f.hidden_field :user_id
+            = f.hidden_field :video_id
+            = f.text_field :body, "placeholder":"公開コメントを追加"
+          .action
+            = f.submit "post"
 
-        .view-comments
-          - @video.comments.order("id desc").each do |c|
-            - if c.body
-              .comment-view
-                = link_to c.user.name, c.user
-              .comment-body
-                = c.body
-              .comment-action
-                = link_to 'Destroy', c, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      .view-comments
+        - @video.comments.order("id desc").each do |c|
+          - if c.body
+            .comment-view
+              = link_to c.user.name, c.user
+            .comment-body
+              = c.body
+            .comment-action
+              = link_to 'Destroy', c, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
   .candidate.col-md-2
-    .contents
-      = render "candidates", videos: Video.recommends
+    = render "candidates", videos: Video.recommends

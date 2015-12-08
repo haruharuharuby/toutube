@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :playlists, except: [:new, :edit, :update]
 
   resource :user, except: [:index, :edit, :update] do
+    resources :subscriptions
     member do
       get 'home'
       get 'videos'

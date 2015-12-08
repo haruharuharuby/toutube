@@ -1,3 +1,4 @@
+
 .video-upload{
   width: 350px;
   padding: 15px;
@@ -5,13 +6,99 @@
 }
 
 .video-list{
-  .author, .view-count{
-    font-size: 50%;
-  }
   .thumbnail{
     margin-bottom: 0;
   }
+  .information{
+    line-height: 120%;
+    color: #808080;
+  }
   li{
-    margin: 4px;
+    padding: 20px;
+  }
+}
+
+.watch{
+  .screen{
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    video{
+      background-color: black;
+    }
+  }
+  .channel-border{
+    border: 1px solid hsl(180, 0%, 90%);
+    background-color: hsl(0, 0%, 97%);
+    padding: 0 15px 0 15px;
+  }
+  .video-title{
+    margin-left: 0;
+  }
+  .channel{
+    border-bottom: 2px solid hsl(180, 0%, 80%);
+    padding: 5px 0 5px 0;
+
+    .screen{
+    }
+    .symbol{
+      font-size: 300%;
+    }
+    .subscribe-action{
+      margin-left: 0;
+    }
+    .action{
+      background-color: red;
+      color: white;
+      padding: 5px 0 1px 5px;
+      min-height: 25px;
+      margin-left: 0;
+    }
+    .action a{
+      color: white;
+    }
+    .action a:hover{
+      color: white;
+    }
+    .action::before{
+      background-color: white;
+      color: red;
+      border-radius: 3px;
+      padding: 2px 4px 2px 4px;
+      font-size: 60%;
+    }
+    .subscribe-count{
+      margin-top: 1px;
+      padding: 3px 0 2px 5px;
+      border: 1px solid hsl(180, 0%, 50%);
+      color: hsl(180, 0%, 50%);
+    }
+    .empty{
+      min-height: 25px;
+    }
+    .view-count{
+      text-align: right;
+      color: hsl(180, 0%, 50%);
+
+    }
+  }
+
+  .playlist{
+    margin: 10px 0 10px 0;
+    color: hsl(180, 0%, 50%);
+    a{
+      color: hsl(180, 0%, 50%);
+    }
+  }
+  .playlist::before{
+    font-size: 150%;
+  }
+
+  .comments{
+    margin-top: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border: 1px solid hsl(180, 0%, 90%);
+    background-color: hsl(0, 0%, 97%);
   }
 }

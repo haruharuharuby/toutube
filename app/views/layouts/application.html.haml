@@ -99,10 +99,10 @@
             登録チャンネル
 
           %ul.nav.nav-stacked
-            - current_user.subscriptions.each do |channel|
+            - current_user.subscriptions.each do |subscription|
               %li.channel-subscriptions
                 .channel
-                  %span #{channel.name}
+                  %span #{subscription.channel.name}
 
           %ul.nav.navbar-stacked
             %li.allchannnels
@@ -111,6 +111,5 @@
             %li.management_subscriptions
               .glyphicon.glyphicon-cog
               %span 登録リストを管理
-
-    .contents.container-fluid
-      = yield
+              
+    = yield
