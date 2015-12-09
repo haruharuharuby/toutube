@@ -100,5 +100,9 @@
     padding-top: 10px;
     border: 1px solid hsl(180, 0%, 90%);
     background-color: hsl(0, 0%, 97%);
+
+    input[type=text]{
+      width: 80%;
+    }
   }
 }

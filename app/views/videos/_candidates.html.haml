@@ -1,17 +1,18 @@
-%b オススメ
-- videos.each do |video|
-  %ul
-    %li
-      .thumbnail
-        = image_tag video.uri_url(:thumb2) if video.uri?
-      .information
-        %b 'author'
-        = video.channel.name
-        %br
-        %b 'interactions'
-        = video.view_count
-        %br
-        = video.created_at
-        %br
-        %b
-        = link_to video.title, video
+次の動画
+.video-list
+  - videos.each do |video|
+    %ul.list-inline
+      %li
+        .thumbnail
+          = link_to image_tag(video.uri_url(:thumb2)), video
+        %small
+          .information
+            .title
+              = link_to video.title, video
+            .author
+              作者:
+              = link_to video.channel.name, channel_path(video.channel)
+            .view-count
+              視聴回数
+              #{video.view_count} 回 *
+              #{time_ago_in_words video.created_at} 前

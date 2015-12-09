@@ -60,5 +60,5 @@
             .comment-action
               = link_to 'Destroy', c, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-  .candidate.col-md-2
+  .candidates.col-md-2
     = render "candidates", videos: Video.recommends
