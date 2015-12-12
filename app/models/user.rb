@@ -10,18 +10,6 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  def like_videos
-    self.reputations.where(status: Reputation.statuses[:like]).preload(:video)
-  end
-
-  def my_video?(video)
-    self.videos.exists?(video)
-  end
-
-  def my_channel?(channel)
-    self.channels.exists?(channel)
-  end
-
   after_create :create_initial_channel
   after_create :create_initial_playlist
   def create_initial_channel
@@ -31,6 +19,7 @@ class User < ActiveRecord::Base
   def create_initial_playlist
     self.playlists.create(name: "お気に入り", playlist_type: Playlist.types[:favorite])
     self.playlists.create(name: "高く評価した動画", playlist_type: Playlist.types[:like])
+    self.playlists.create(name: "低く評価した動画", playlist_type: Playlist.types[:dislike])
     self.playlists.create(name: "後で見る", playlist_type: Playlist.types[:later])
     self.playlists.create(name: "履歴", playlist_type: Playlist.types[:history])
   end

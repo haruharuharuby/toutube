@@ -1,12 +1,15 @@
 class UsersController < ApplicationController
   before_action :require_user, except: [:create, :new]
-  before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :subscriptions, :playlists, :channels, :description]
+  before_action :set_user, only: [:show, :update, :destroy, :home, :edit]
 
   def show
   end
 
   def new
     @user = User.new
+  end
+
+  def edit
   end
 
   def create
@@ -35,11 +38,6 @@ class UsersController < ApplicationController
   def home
   end
 
-  def playlists
-  end
-  
-  def description
-  end
 
   private
     def set_user

@@ -7,6 +7,7 @@ class VideosController < ApplicationController
   end
 
   def show
+    @video.increment!(:view_count)
   end
 
   def new
@@ -30,16 +31,6 @@ class VideosController < ApplicationController
   def search
     @videos = Video.search(params[:search_keyword])
     render :index
-  end
-
-  def reputate
-    if current_user.my_video?(@video)
-      redirect_to @video, notice: 'Can not add reputatation your video'
-    else
-      # Reputation.add(current_user, @video, params[:status].to_i)
-      @video.reputate(current_user, params[:status])
-      redirect_to @video, notice: 'Reputated this video'
-    end
   end
 
   private

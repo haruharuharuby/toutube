@@ -4,7 +4,7 @@ $ ->
   $(".left-side-menu").css("display", "none")
 
   channels = $(".user-description").length
-  $(".user-description").height(channels*30 + 50)
+  $(".user-description").height(channels*30 + 100)
   $(".user-menu").on "click", ->
     $(".user-description").toggle()
 

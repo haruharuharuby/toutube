@@ -8,10 +8,9 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get 'upload' => 'videos#new'
 
-  resources :channels, except: [:new, :edit, :update]
+  resources :channels, only: [:index, :show]
 
   resources :videos, except: [:delete, :edit, :update] do
-    resources :playlist_video_relation, only:[:create, :destroy]
     collection do
       get 'search'
     end
@@ -21,15 +20,16 @@ Rails.application.routes.draw do
     resources :comments, except: [:edit, :new, :index, :show]
   end
 
-  resource :user, except: [:index, :edit, :update] do
-    resources :subscriptions, only: [:create, :update, :destroy]
-    resources :playlists, only: [:index, :create, :update, :destroy]
+  resources :playlist_video_relations, only:[:create, :destroy]
+
+  resource :user, except: [:index, :update] do
+    resources :subscriptions, only: [:index, :create, :update, :destroy]
+    resources :playlists, only: [:index, :show, :create, :update, :destroy]
+    resources :channels
     member do
       get 'home'
       get 'videos'
-      get 'playlists'
       get 'channels'
-      get 'description'
     end
   end
 

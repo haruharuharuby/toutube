@@ -2,4 +2,7 @@
   - @channels.each do |channel|
     .channel-information
       = link_to channel.name, channel_path(channel)
-      = image_tag channel.videos.first.uri_url(:thumb)
+      - if channel.videos.any?
+        = image_tag channel.videos.first.uri_url(:thumb)
+      - else
+        動画は登録されていません。

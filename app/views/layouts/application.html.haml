@@ -37,7 +37,7 @@
               .email #{current_user.email}
               - current_user.channels.each do |channel|
                 .channel
-                  = link_to display_channel_name(channel), channel_path(channel), method: :post
+                  = link_to display_channel_name(channel), user_channel_path(channel)
               .logout
                 = link_to 'ログアウト', logout_path, method: :delete
 
@@ -75,13 +75,13 @@
                 = link_to "マイチャンネル", user_path
             %li.subscriptions
               .glyphicon.glyphicon-inbox
-                = link_to "登録チャンネル", channels_user_path
+                = link_to "登録チャンネル", user_subscriptions_path
             %li.history
               .glyphicon.glyphicon-hourglass
-                = link_to "履歴", playlists_user_path, query: Playlist.types[:history]
+                = link_to "履歴", user_playlists_path, query: Playlist.types[:history]
             %li.later
               .glyphicon.glyphicon-dashboard
-                = link_to "後で見る", playlists_user_path, query: Playlist.types[:later]
+                = link_to "後で見る", user_playlists_path, query: Playlist.types[:later]
 
           .playlist
             再生リスト
@@ -90,7 +90,7 @@
                 %li.playlist-item
                   .glyphicon.glyphicon-menu-hamburger.pull-left
                   .link
-                    = link_to playlist.name, playlists_user_path
+                    = link_to playlist.name, user_playlists_path
 
           .subscriptions
             = link_to "登録チャンネル", channels_user_path

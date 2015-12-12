@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
   before_action :require_user, except: [:show]
-  before_action :set_channel, only: [:show, :destroy, :register, :change]
+  before_action :set_channel, only: [:show, :destroy, :register, :update]
 
   def index
     @channels = Channel.all
@@ -15,25 +15,18 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params)
-    if @channel.save
-      redirect_to :back, notice: 'Channel was successfully created.'
-    else
-      render :new
-    end
+    @channel.save
+    redirect_to :back, notice: 'チャンネルを作成しました。'
+  end
+
+  def update
+    @channel.set_current
+    redirect_to :back, notice: 'チャンネルを変更しました。'
   end
 
   def destroy
     @channel.destroy
     redirect_to channels_url, notice: 'Channel was successfully destroyed.'
-  end
-
-  def register
-    if current_user.my_channel?(@channel)
-      redirect_to :back, notice: 'Can not register your channel'
-    else
-      Subscription.register(params[:register].to_i, current_user, @channel)
-      redirect_to :back, notice: 'This channel is registered'
-    end
   end
 
   private
@@ -42,6 +35,6 @@ class ChannelsController < ApplicationController
     end
 
     def channel_params
-      params.require(:channel).permit(:name, :user_id)
+      params.require(:channel).permit(:name, :user_id, :current)
     end
 end

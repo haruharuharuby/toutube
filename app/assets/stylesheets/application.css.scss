@@ -69,7 +69,7 @@ $screen-md-min: 992px;
 
   .user-description
   {
-    left: -20px;
+    left: -100px;
   }
 }
 
@@ -121,8 +121,10 @@ header{
         }
       }
       .user-description{
+        display: none;
         position: absolute;
         margin-top: 10px;
+        width: 150px;
         border-radius: 4px;
         background-color: hsl(36,100%,80%);
         z-index: 1;
@@ -136,7 +138,7 @@ header{
       .user-description:after{
         content: '';
         position: absolute;
-        margin-left: 10px;
+        margin-left: 100px;
         border-top: 10px solid transparent;
         border-right: 10px solid transparent;
         border-left: 10px solid transparent;

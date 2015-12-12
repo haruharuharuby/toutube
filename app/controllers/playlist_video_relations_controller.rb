@@ -3,7 +3,7 @@ class PlaylistVideoRelationsController < ApplicationController
   before_action :set_playlist_video_relation, only:[:destroy]
 
   def create
-    @playlist_video_relation = Playlist_video_relation.new(playlist_video_relation_params)
+    @playlist_video_relation = PlaylistVideoRelation.new(playlist_video_relation_params)
     @playlist_video_relation.save
     redirect_to :back
   end
@@ -15,7 +15,7 @@ class PlaylistVideoRelationsController < ApplicationController
 
   private
     def set_playlist_video_relation
-      @playlist_video_relation = Playlist_video_relation.find(params[:id])
+      @playlist_video_relation = PlaylistVideoRelation.find(params[:id])
     end
 
     def playlist_video_relation_params

@@ -1,25 +1,23 @@
 %p#notice= notice
 
-.channel-title
-  %p
-    %b Channel Name:
-    = @channel.name
-
-.video-index-container
-  - @channel.videos.each do |video|
-    %ul
-      %li
-        .thumbnail
-          = image_tag video.uri_url(:thumb) if video.uri?
-        .information
-          %b 'author'
-          = video.channel.name
-          %br
-          %b 'interactions'
-          = video.view_count
-          %br
-          %b 'uploaded_at'
-          = video.created_at
-          %br
-          %b
-          = link_to video.title, video
+.container
+  .row.title
+    %h3 チャンネル #{@channel.name}
+  .row.video-list
+    %h4 このチャンネルに投稿された動画
+    %ul.nav.navbar-nav
+      - @channel.videos.each do |video|
+        %li
+          .thumbnail
+            = link_to image_tag(video.uri_url(:thumb)), video
+          %small
+            .information
+              .title
+                = link_to video.title, video
+              .author
+                作者:
+                = link_to video.channel.name, channel_path(video.channel)
+              .view-count
+                視聴回数
+                #{video.view_count} 回 *
+                #{time_ago_in_words video.created_at} 前

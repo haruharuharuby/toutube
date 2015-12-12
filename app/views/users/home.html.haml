@@ -3,4 +3,7 @@
   .row.my-menu.center-block
     = render partial: "my_menu"
   .row.videos
-    = render partial: "videos/index", locals: {videos: current_user.videos}
+    - if current_user.videos.any?
+      = render partial: "videos/index", locals: {videos: current_user.videos}
+    - else
+      投稿した動画はありません。

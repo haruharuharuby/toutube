@@ -1,0 +1,15 @@
+%p#notice= notice
+
+.container
+  .row.my-menu.center-block
+    = render partial: "users/my_menu"
+  .row.subscriptions
+    %h3 登録チャンネル
+  .row.list
+    %ul.nav.navbar-nav
+      - @subscriptions.each do |subscription|
+        %li.list-inline
+          .name
+            名前 #{subscription.channel.name}
+          .thumbnail
+            = link_to image_tag(subscription.channel.videos.first.uri_url(:thumb)), channel_path(subscription.channel)
