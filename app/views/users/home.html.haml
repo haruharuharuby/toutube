@@ -1,13 +1,6 @@
-.menu
-  .user-menu
-    %nav.home-menu.navbar-nav
-      %ul.nav.navbar-nav
-        %li.home
-          = link_to "home", home_user_path
-        %li.subscriptions
-          = link_to "登録チャンネル", channels_path
-
-.video-contents
-  = render partial: "videos/index", locals: {videos: @user.videos}
-
 %p#notice= notice
+.container
+  .row.my-menu.center-block
+    = render partial: "my_menu"
+  .row.videos
+    = render partial: "videos/index", locals: {videos: current_user.videos}

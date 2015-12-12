@@ -2,6 +2,10 @@ class ChannelsController < ApplicationController
   before_action :require_user, except: [:show]
   before_action :set_channel, only: [:show, :destroy, :register, :change]
 
+  def index
+    @channels = Channel.all
+  end
+
   def show
   end
 

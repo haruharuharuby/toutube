@@ -3,7 +3,7 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :destroy]
 
   def index
-    @playlists = Playlist.build_for_register(current_user, params[:video])
+    @playlists = current_user.playlist.build_for_register(current_user, params[:video])
     @new_playlist = Playlist.new_playlist_build(current_user, params[:video])
   end
 

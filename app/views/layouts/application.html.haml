@@ -43,13 +43,13 @@
 
 .body
   .container-fluid
-    .left-side-menu.col-md-2
+    .left-side-menu
       - unless current_user
         %nav.navbar
           %ul.nav.nav-stacked
             %li.home
               .glyphicon.glyphicon-home
-              %span ホーム
+                = link_to "ホーム", videos_path
 
           .category
             BEST OF ITOTUBE
@@ -68,48 +68,47 @@
           %ul.nav.nav-stacked
             %li.home
               .glyphicon.glyphicon-home
-              %span ホーム
+                = link_to "ホーム", videos_path
             %li.mychannel
-              .glyphicon.glyphicon-user
-              %span マイチャンネル
+              .glyphicon.glyphicon-user.pull-left
+              .link
+                = link_to "マイチャンネル", user_path
             %li.subscriptions
               .glyphicon.glyphicon-inbox
-              %span 登録チャンネル
+                = link_to "登録チャンネル", channels_user_path
             %li.history
               .glyphicon.glyphicon-hourglass
-              %span 履歴
+                = link_to "履歴", playlists_user_path, query: Playlist.types[:history]
             %li.later
               .glyphicon.glyphicon-dashboard
-              %span 後で見る
+                = link_to "後で見る", playlists_user_path, query: Playlist.types[:later]
 
           .playlist
             再生リスト
-          %ul.nav.nav-stacked
-            - current_user.playlists.each do |playlist|
-              - if playlist.like?
-                %li.playlist-likes
-                  .glyphicon.glyphicon-thumbs-up
-                  %span 高く評価した動画
-              - else
-                %li.playlist-other
-                  .glyphicon.glyphicon-menu-hamburger
-                  %span #{playlist.name}
+            %ul.nav.nav-stacked
+              - current_user.playlists.each do |playlist|
+                %li.playlist-item
+                  .glyphicon.glyphicon-menu-hamburger.pull-left
+                  .link
+                    = link_to playlist.name, playlists_user_path
 
           .subscriptions
-            登録チャンネル
+            = link_to "登録チャンネル", channels_user_path
 
           %ul.nav.nav-stacked
             - current_user.subscriptions.each do |subscription|
               %li.channel-subscriptions
                 .channel
-                  %span #{subscription.channel.name}
+                  = link_to subscription.channel.name, channel_path(subscription.channel)
 
           %ul.nav.navbar-stacked
             %li.allchannnels
-              .glyphicon.glyphicon-plus-sign
-              %span チャンネル一覧
+              .glyphicon.glyphicon-plus-sign.pull-left
+              .link
+                = link_to "チャンネル一覧", channels_path
             %li.management_subscriptions
-              .glyphicon.glyphicon-cog
-              %span 登録リストを管理
-              
-    = yield
+              .glyphicon.glyphicon-cog.pull-left
+              .link
+                = link_to "登録リストを管理", channels_path
+    .contents
+      = yield

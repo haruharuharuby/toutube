@@ -1,9 +1,6 @@
 %p#notice= notice
-
-%p
-  = render partial: "my_menu", locals: {user: @user}
-
-%p
-  %b Name:
-  = @user.name
-  = render partial: "videos/index", locals: {videos: @user.videos}
+.container
+  .row.my-menu.center-block
+    = render partial: "my_menu"
+  .row.videos
+    = render partial: "videos/index", locals: {videos: current_user.videos}

@@ -37,12 +37,11 @@ ActiveRecord::Schema.define(version: 20151201153001) do
   end
 
   create_table "playlists", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.integer  "plylist_type", limit: 4
-    t.integer  "user_id",      limit: 4
-    t.integer  "video_id",     limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",          limit: 255
+    t.integer  "playlist_type", limit: 4,   default: 0, null: false
+    t.integer  "user_id",       limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|

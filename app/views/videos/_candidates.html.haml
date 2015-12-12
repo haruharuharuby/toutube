@@ -1,10 +1,10 @@
 次の動画
 .video-list
   - videos.each do |video|
-    %ul.list-inline
+    %ul.nav.nav-stacked
       %li
-        .thumbnail
-          = link_to image_tag(video.uri_url(:thumb2)), video
+        .thumbnail.pull-left
+          = link_to image_tag(video.uri_url(:thumb2), size: "108x12"), video
         %small
           .information
             .title

@@ -1,6 +1,6 @@
 .video-list
-  - videos.each do |video|
-    %ul.list-inline
+  %ul.nav.navbar-nav
+    - videos.each do |video|
       %li
         .thumbnail
           = link_to image_tag(video.uri_url(:thumb)), video

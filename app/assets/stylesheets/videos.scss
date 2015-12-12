@@ -4,17 +4,16 @@
   padding: 15px;
   margin: 0 auto;
 }
-
 .video-list{
-  .thumbnail{
-    margin-bottom: 0;
-  }
-  .information{
-    line-height: 120%;
-    color: #808080;
+  .subject, ul{
+    margin-left: 10px;
   }
   li{
-    padding: 20px;
+    margin: 10px 10px 10px 10px;
+  }
+  .thumbnail{
+    width: 192px;
+    height:108px;
   }
 }
 
@@ -94,6 +93,14 @@
     font-size: 150%;
   }
 
+  .floating-playlist-add{
+    position: absolute;
+    display: none;
+    background-color: #f0f0f0;
+    border: 2px solid #5f5f5f;
+    padding: 5px;
+  }
+
   .comments{
     margin-top: 15px;
     padding-left: 10px;
@@ -103,6 +110,20 @@
 
     input[type=text]{
       width: 80%;
+    }
+  }
+}
+.candidates{
+  border: 1px solid hsl(180, 0%, 90%);
+  background-color: hsl(0, 0%, 97%);
+  .video-list{
+    .thumbnail{
+      width: 110px;
+      height: 92px;
+    }
+    .information{
+      margin-left: 110px;
+      padding: 20px 10px 20px 10px;
     }
   }
 }

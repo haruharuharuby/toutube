@@ -17,10 +17,15 @@ $ ->
   $(".toggle-side-menu").on "click", ->
     $(".left-side-menu").toggle()
     if $(".left-side-menu").css("display") == 'none'
-      $(".contents").addClass("container-fluid")
+      $(".left-side-menu").removeClass("col-md-2")
       $(".contents").removeClass("col-md-10")
+      $(".contents").addClass("col-md-12")
     else
+      $(".left-side-menu").addClass("col-md-2")
       $(".contents").addClass("col-md-10")
-      $(".contents").removeClass("container-fluid")
-      $(".contents").css("padding-left", "0")
-      $(".contents").css("padding-right", "0")
+      $(".contents").removeClass("col-md-12")
+      # $(".contents").css("padding-left", "0")
+      # $(".contents").css("padding-right", "0")
+
+  $(".add").on "click", ->
+    $(".floating-playlist-add").toggle()

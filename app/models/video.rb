@@ -2,7 +2,7 @@ class Video < ActiveRecord::Base
   belongs_to :user
   belongs_to :channel
   has_many :playlists, through: :playlist_video_relations
-  has_many :video_playlists
+  has_many :playlist_video_relations
   has_many :reputations
   has_many :comments
 

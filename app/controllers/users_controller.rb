@@ -35,18 +35,9 @@ class UsersController < ApplicationController
   def home
   end
 
-  def videos
-  end
-
-  def subscriptions
-  end
-
   def playlists
   end
-
-  def channels
-  end
-
+  
   def description
   end
 
