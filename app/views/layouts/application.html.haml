@@ -93,7 +93,7 @@
                     = link_to playlist.name, user_playlists_path
 
           .subscriptions
-            = link_to "登録チャンネル", channels_user_path
+            = link_to "登録チャンネル", user_channels_path
 
           %ul.nav.nav-stacked
             - current_user.subscriptions.each do |subscription|

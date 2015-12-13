@@ -1,17 +1,16 @@
-.video-list
-  %ul.nav.navbar-nav
-    - videos.each do |video|
-      %li
-        .thumbnail
-          = link_to image_tag(video.uri_url(:thumb)), video
-        %small
-          .information
-            .title
-              = link_to video.title, video
-            .author
-              作者:
-              = link_to video.channel.name, channel_path(video.channel)
-            .view-count
-              視聴回数
-              #{video.view_count} 回 *
-              #{time_ago_in_words video.created_at} 前
+%ul.nav.navbar-nav
+  - videos.each do |video|
+    %li
+      .thumbnail
+        = link_to image_tag(video.uri_url(:thumb)), video
+      %small
+        .information
+          .title
+            = link_to video.title, video
+          .author
+            作者:
+            = link_to video.channel.name, channel_path(video.channel)
+          .view-count
+            視聴回数
+            #{video.view_count} 回 *
+            #{time_ago_in_words video.created_at} 前

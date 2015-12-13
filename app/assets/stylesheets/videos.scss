@@ -18,7 +18,11 @@
 }
 
 .watch{
+  #notice{
+    margin-top: 15px;
+  }
   .screen{
+    margin-top: 15px;
     margin-left: 0;
     margin-right: 0;
     text-align: center;
@@ -87,6 +91,9 @@
     a{
       color: hsl(180, 0%, 50%);
     }
+    .cancel-dislike,.cancel-like{
+      color: blue;
+    }
     .glyphicon-thumbs-up,.glyphicon-thumbs-down{
       font-size: 120%;
       margin-right: 10px;
@@ -97,6 +104,9 @@
   }
 
   .floating-playlist-add{
+    .name{
+      padding: 10px;
+    }
     position: absolute;
     display: none;
     background-color: #f0f0f0;
@@ -117,6 +127,11 @@
   }
 }
 .candidates{
+  .title{
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  margin-top: 15px;
   border: 1px solid hsl(180, 0%, 90%);
   background-color: hsl(0, 0%, 97%);
   .video-list{

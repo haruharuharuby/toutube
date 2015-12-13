@@ -7,9 +7,14 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = current_user.subscriptions.build(channel: Channel.find(params[:channel]))
-    @subscription.save
-    redirect_to :back
+    channel = Channel.find(params[:channel])
+    if current_user.channels.exists?(channel)
+      redirect_to :back, notice: '自分のチャンネルは登録できません。'
+    else
+      @subscription = current_user.subscriptions.build(channel: channel)
+      @subscription.save
+      redirect_to :back
+    end
   end
 
   def destroy

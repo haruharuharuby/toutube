@@ -15,12 +15,13 @@ Rails.application.routes.draw do
       get 'search'
     end
     member do
-      post 'reputate'
+      post 'playlists' => 'videos#add_playlist'
+      delete 'playlists' => 'videos#delete_playlist'
     end
     resources :comments, except: [:edit, :new, :index, :show]
   end
 
-  resources :playlist_video_relations, only:[:create, :destroy]
+  resources :playlist_video_relations, only: [:create, :destroy]
 
   resource :user, except: [:index, :update] do
     resources :subscriptions, only: [:index, :create, :update, :destroy]
@@ -29,7 +30,6 @@ Rails.application.routes.draw do
     member do
       get 'home'
       get 'videos'
-      get 'channels'
     end
   end
 

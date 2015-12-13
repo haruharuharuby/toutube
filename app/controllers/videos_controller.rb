@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :require_user, only: [:new, :reputate, :create]
+  before_action :require_user, only: [:new, :reputate, :create, :add_playlist, :delete_playlist]
   before_action :set_video, except: [:index, :search, :new, :create]
 
   def index
@@ -17,7 +17,7 @@ class VideosController < ApplicationController
   def create
     @video = current_user.videos.build(video_params)
     if @video.save
-      redirect_to @video, notice: 'Video was successfully created.'
+      redirect_to @video, notice: '動画を投稿しました。'
     else
       render :new
     end
@@ -25,12 +25,24 @@ class VideosController < ApplicationController
 
   def destroy
     @video.destroy
-    redirect_to videos_url, notice: 'Video was successfully destroyed.'
+    redirect_to videos_url, notice: '動画を削除しました。'
   end
 
   def search
     @videos = Video.search(params[:search_keyword])
     render :index
+  end
+
+  def add_playlist
+    playlist = @video.new_playlist(current_user, params[:q])
+    playlist.save
+    redirect_to :back;
+  end
+
+  def delete_playlist
+    playlist = @video.get_playlist(current_user, params[:q])
+    playlist.destroy
+    redirect_to :back;
   end
 
   private

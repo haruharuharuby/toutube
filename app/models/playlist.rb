@@ -9,6 +9,10 @@ class Playlist < ActiveRecord::Base
     self.playlist_video_relations.where(video: video).exists?
   end
 
+  def self.select_for_playlist_add
+    return self.where(playlist_type: [2,3,5])
+  end
+
   def self.like
     return self.where(playlist_type: Playlist.types[:like]).first
   end

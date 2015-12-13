@@ -1,4 +1,5 @@
-.subject
-  %h5 あなたへのおすすめ
-
-= render partial: 'index', locals: {videos: @videos}
+.container
+  .row.title
+    %h5 あなたへのおすすめ
+  .row.video-list
+    = render partial: 'index', locals: {videos: @videos}
