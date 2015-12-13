@@ -1,15 +1,15 @@
 class Channel < ActiveRecord::Base
   belongs_to :user
   has_many :videos
-
-  def already_registered?(user)
-    Subscription.where(user_id: user, channel_id:self).exists?
-  end
-
-  def set_current(user)
-    user.channels.update_all("current = false")
-    self.current = true
-  end
+  has_many :subscriptions
 
   scope :current_channel, -> { where(current: true).uniq.first }
+
+  def set_current
+    old_channel = Channel.current_channel
+    old_channel.current = false
+    old_channel.save
+    self.current = true
+    self.save
+  end
 end

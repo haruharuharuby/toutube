@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user, except: [:create, :new]
-  before_action :set_user, only: [:show, :update, :destroy, :home, :videos, :playlists, :channels, :description]
-
-  def index
-    @users = User.all
-  end
+  before_action :set_user, only: [:show, :update, :destroy, :home, :edit]
 
   def show
   end
@@ -13,10 +9,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def edit
+  end
+
   def create
     @user = User.new(user_params)
-    c = @user.channels.build(name: @user.name, current: true)
-    if @user.save && c.save
+    if @user.save
       session[:user_id] = @user.id
       redirect_to :root
     else
@@ -38,32 +36,12 @@ class UsersController < ApplicationController
   end
 
   def home
-    render :home
   end
 
-  def videos
-    render :videos
-  end
-
-  def playlists
-    @see_lateres = Playlist.get_see_later(@user)
-    @favorites = Playlist.get_see_later(@user)
-    @custom_playlists = Playlist.get_custom_playlists(@user)
-    @likes = @user.like_videos
-    render :playlists
-  end
-
-  def channels
-    render :channels
-  end
-
-  def description
-    render :description
-  end
 
   private
     def set_user
-      @user = User.find(params[:id])
+      @user = current_user
     end
 
     def user_params

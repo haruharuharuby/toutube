@@ -7,53 +7,108 @@
   = csrf_meta_tags
 %body
 
-.header-container
-  .toutube-logo-container
-    TouTube
+%header
+  %nav.nav
+    .container-fluid
+      %ul.video-menu.nav.navbar-nav
+        %li.button-icon
+          = button_tag class: "toggle-side-menu btn navbar-btn btn-default" do
+            %span.glyphicon.glyphicon-align-justify
+        %li.logo-top-link
+          = link_to "dfadsfdsafads", videos_path, class: "home-button"
+        %li.search
+          = form_tag search_videos_path, method: :get do
+            = text_field_tag 'search_keyword'
+            = button_tag class: "search-button btn navbar-btn btn-default" do
+              %i.glyphicon.glyphicon-search
+      %ul.user-menu.nav.navbar-nav.navbar-right
+        %li.upload
+          = link_to "アップロード", new_video_path
+        %li.signup
+          = link_to 'サインアップ', signup_path
+        %li.login
+          - if current_user
+            .user-container
+              .user-icon #{current_user.name}
+          -else
+            = link_to 'ログイン', login_path
+          .user-description
+            - if current_user
+              .email #{current_user.email}
+              - current_user.channels.each do |channel|
+                .channel
+                  = link_to display_channel_name(channel), user_channel_path(channel)
+              .logout
+                = link_to 'ログアウト', logout_path, method: :delete
 
-  .search-bar-container
-    = form_tag search_videos_path, method: :get  do
-      = text_field_tag 'search_keyword'
-      = submit_tag 'search'
+.body
+  .container-fluid
+    .left-side-menu
+      - unless current_user
+        %nav.navbar
+          %ul.nav.nav-stacked
+            %li.home
+              .glyphicon.glyphicon-home
+                = link_to "ホーム", videos_path
 
-  .user-container
-    .upload-container
-      = button_to 'Upload', new_video_path, method: :get
-    .signup
-      = button_to 'Sign up', signup_path, method: :get
-    - if current_user
-      .user-icon
-        = image_tag("user-icon.png", size: "32x32")
-      .user-information
-        .user-email
-          = current_user.email
-        - current_user.channels.each do |channel|
-          .user-channel
-            = link_to display_channel_name(channel), change_channel_path(channel), method: :post
-        .user-logout
-          = button_to 'Logout', logout_path, method: :delete
-    - else
-      .user-login
-        = button_to 'Login', login_path, method: :get
+          .category
+            BEST OF ITOTUBE
 
-.menu-and-contantes-container
-  .left-menu-container
-    %nav
-      %ul
-        %li
-          = link_to "Home", videos_path
-        - if current_user
-          %li
-            = link_to "My Channel", user_path(current_user)
-          %li
-            = link_to "Subscribed channel", subscriptions_channels_path
-          %li
-            = link_to "History", channel_path(current_user), data: {view: "history"}
-          %li
-            =link_to "See later", channel_path(current_user.channels.current_channel), data: {view: "see lator"}
+          %ul.nav.navbar-stacked
+            %li.popularity
+              .glyphicon.glyphicon-star-empty
+              %span ito-tubeで人気
+            %li.allchannnels
+              .glyphicon.glyphicon-plus-sign
+              %span チャンネル一覧
+            %li.login
+              = link_to 'ログイン', login_path, class:"btn-xs btn-primary"
+      - else
+        %nav.navbar
+          %ul.nav.nav-stacked
+            %li.home
+              .glyphicon.glyphicon-home
+                = link_to "ホーム", videos_path
+            %li.mychannel
+              .glyphicon.glyphicon-user.pull-left
+              .link
+                = link_to "マイチャンネル", user_path
+            %li.subscriptions
+              .glyphicon.glyphicon-inbox
+                = link_to "登録チャンネル", user_subscriptions_path
+            %li.history
+              .glyphicon.glyphicon-hourglass
+                = link_to "履歴", user_playlists_path, query: Playlist.types[:history]
+            %li.later
+              .glyphicon.glyphicon-dashboard
+                = link_to "後で見る", user_playlists_path, query: Playlist.types[:later]
 
-  .contents-container
-    = yield(:submenu)
-    = yield
+          .playlist
+            再生リスト
+            %ul.nav.nav-stacked
+              - current_user.playlists.each do |playlist|
+                %li.playlist-item
+                  .glyphicon.glyphicon-menu-hamburger.pull-left
+                  .link
+                    = link_to playlist.name, user_playlists_path
 
-.footer-container
+          .subscriptions
+            = link_to "登録チャンネル", user_channels_path
+
+          %ul.nav.nav-stacked
+            - current_user.subscriptions.each do |subscription|
+              %li.channel-subscriptions
+                .channel
+                  = link_to subscription.channel.name, channel_path(subscription.channel)
+
+          %ul.nav.navbar-stacked
+            %li.allchannnels
+              .glyphicon.glyphicon-plus-sign.pull-left
+              .link
+                = link_to "チャンネル一覧", channels_path
+            %li.management_subscriptions
+              .glyphicon.glyphicon-cog.pull-left
+              .link
+                = link_to "登録リストを管理", channels_path
+    .contents
+      = yield

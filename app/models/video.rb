@@ -1,37 +1,56 @@
 class Video < ActiveRecord::Base
   belongs_to :user
   belongs_to :channel
-  has_one :rating
-  accepts_nested_attributes_for :rating
-  has_many :playlists
-  has_many :followed_users, through: :palylists, source: :user
-  has_many :reputations
-  has_many :reputated_users, through: :reputations, source: :user
+  has_many :playlists, through: :playlist_video_relations
+  has_many :playlist_video_relations
   has_many :comments
-  accepts_nested_attributes_for :comments
 
-  attr_accessor :like, :dislike
   mount_uploader :uri, MyvideoUploader
 
-  def self.search(key)
-    return Video.where("title like ?", "%#{key}%")
-  end
+  scope :search, -> (key) {
+    where('title like ?', "%#{key}%")
+  }
 
-  def set_rating
-    if self.rating
-      self.rating.up()
+  def like?(user)
+    if user
+      user_playlist_like = user.playlists.where(playlist_type: Playlist.types[:like])
+      return self.playlists.exists?(user_playlist_like)
     else
-      r = Rating.new
-      r.video_id = self.id
-      r.save
+      false
     end
   end
 
-  def set_channel(channel)
-    self.channel = channel
+  def dislike?(user)
+    if user
+      user_playlist_dislike = user.playlists.where(playlist_type: Playlist.types[:dislike])
+      return self.playlists.exists?(user_playlist_dislike)
+    else
+      false
+    end
+  end
+
+  def new_playlist(user, type)
+    playlist = Playlist.where(user: user, playlist_type: type).first
+    return PlaylistVideoRelation.new(playlist: playlist, video: self)
+  end
+
+  def get_playlist(user, type)
+    playlist = Playlist.where(user: user, playlist_type: type).first
+    return PlaylistVideoRelation.where(playlist: playlist, video: self).first
+  end
+
+  def count_likes
+    playlist_like = self.playlists.like
+    return self.playlist_video_relations.where(playlist: playlist_like).count
+  end
+
+  def count_dislikes
+    playlist_dislike = self.playlists.dislike
+    return self.playlist_video_relations.where(playlist: playlist_dislike).count
   end
 
   def self.recommends
     Video.all
   end
+
 end

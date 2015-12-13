@@ -1,5 +1,14 @@
-.channels-container
-  - @channels.each do |channel|
-    .channel-information
-      = link_to channel.name, channel_path(channel)
-      = image_tag channel.videos.first.uri_url(:thumb)
+.container
+  .row.title
+    %h3 すべてのチャンネル
+
+  %ul.nav.nav-stacked.navbar-nav
+    - @channels.each do |channel|
+      %li.nav
+        .name
+          = link_to channel.name, channel_path(channel)
+        .thumbnail
+          - if channel.videos.any?
+            = image_tag channel.videos.first.uri_url(:thumb)
+          - else
+            動画は登録されていません。

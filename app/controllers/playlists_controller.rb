@@ -3,24 +3,20 @@ class PlaylistsController < ApplicationController
   before_action :set_playlist, only: [:show, :destroy]
 
   def index
-    @playlists = Playlist.build_for_register(current_user, params[:video])
-    @new_playlist = Playlist.new_playlist_build(current_user, params[:video])
+    @playlists = current_user.playlists.all
   end
 
   def show
-    @videos = @playlist.find_video_by_name(current_user)
   end
 
   def create
     @playlist = Playlist.new(playlist_params)
     @playlist.save
-
     redirect_to :back
   end
 
   def destroy
     @playlist.destroy
-
     redirect_to :back
   end
 
@@ -30,6 +26,6 @@ class PlaylistsController < ApplicationController
     end
 
     def playlist_params
-      params.require(:playlist).permit(:name, :user_id, :video_id)
+      params.require(:playlist).permit(:name, :user_id, :playlist_type)
     end
 end

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :require_user, only: [:create]
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :destroy]
 
   def index
     @comments = Comment.all
@@ -12,16 +12,9 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.user = current_user
     @comment.save
     redirect_to :back
-  end
-
-  def update
-    if @comment.update(comment_params)
-      redirect_to @comment, notice: 'Comment was successfully updated.'
-    else
-      render :edit
-    end
   end
 
   def destroy

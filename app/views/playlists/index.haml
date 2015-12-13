@@ -1,0 +1,16 @@
+%p#notice= notice
+.container
+  .row.my-menu.center-block
+    = render partial: "users/my_menu"
+  %h3 再生リスト
+  .row.playlists
+    %ul.list-inline
+      - current_user.playlists.each do |playlist|
+        %li
+          .name
+            = playlist.name
+          .thumbnail
+            - if playlist.videos.any?
+              = link_to image_tag(playlist.videos.first.uri_url(:thumb)), user_playlist_path(playlist)
+            - else
+              %h5 動画はありません

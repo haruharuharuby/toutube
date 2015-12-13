@@ -1,129 +1,147 @@
-@mixin container-border
-{
-  border: 1px solid darkgray;
-  border-radius: 5px;
-  padding: 5px;
-}
 
-li
-{
-  list-style: none;
+.video-upload{
+  width: 350px;
+  padding: 15px;
+  margin: 0 auto;
 }
-
-textarea, input[type=text]
-{
-  @include container-border();
-  width: 100%;
-}
-
-.page-container
-{
-  display: flex;
-  .watch-container
-  {
-    width: 63%;
-  }
-  .candidate-container
-  {
-    width: 20%;
+.video-list{
+  .subject, ul{
     margin-left: 10px;
   }
-}
-
-.video-index-container, .channels-container
-{
-  display: flex;
-  flex-wrap: wrap;
-  @include container-border();
-  width: 100%;
-
-  .video-title
-  {
-    font-size: 200%;
-    padding: 5px
+  li{
+    margin: 10px 10px 10px 10px;
+  }
+  .thumbnail{
+    width: 192px;
+    height:108px;
   }
 }
 
-.drop-down-container
-{
-    display:flex;
-}
-.channel-container
-{
-  padding-bottom: 10px;
-  .channel-information
-  {
-    display: flex;
-    .interactions
-    {
-      margin-left: auto;
+.watch{
+  #notice{
+    margin-top: 15px;
+  }
+  .screen{
+    margin-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+    video{
+      background-color: black;
+    }
+  }
+  .channel-border{
+    border: 1px solid hsl(180, 0%, 90%);
+    background-color: hsl(0, 0%, 97%);
+    padding: 0 15px 0 15px;
+  }
+  .video-title{
+    margin-left: 0;
+  }
+  .channel{
+    border-bottom: 2px solid hsl(180, 0%, 80%);
+    padding: 5px 0 5px 0;
+
+    .screen{
+    }
+    .symbol{
+      font-size: 300%;
+    }
+    .subscribe-action{
+      margin-left: 0;
+    }
+    .action{
+      background-color: red;
+      color: white;
+      padding: 5px 0 1px 5px;
+      min-height: 25px;
+      margin-left: 0;
+    }
+    .action a{
+      color: white;
+    }
+    .action a:hover{
+      color: white;
+    }
+    .action::before{
+      background-color: white;
+      color: red;
+      border-radius: 3px;
+      padding: 2px 4px 2px 4px;
+      font-size: 60%;
+    }
+    .subscribe-count{
+      margin-top: 1px;
+      padding: 3px 0 2px 5px;
+      border: 1px solid hsl(180, 0%, 50%);
+      color: hsl(180, 0%, 50%);
+    }
+    .empty{
+      min-height: 25px;
+    }
+    .view-count{
+      text-align: right;
+      color: hsl(180, 0%, 50%);
+    }
+  }
+
+  .playlist{
+    margin: 10px 0 10px 0;
+    color: hsl(180, 0%, 50%);
+    a{
+      color: hsl(180, 0%, 50%);
+    }
+    .cancel-dislike,.cancel-like{
+      color: blue;
+    }
+    .glyphicon-thumbs-up,.glyphicon-thumbs-down{
+      font-size: 120%;
+      margin-right: 10px;
+    }
+  }
+  .playlist::before{
+    font-size: 150%;
+  }
+
+  .floating-playlist-add{
+    .name{
+      padding: 10px;
+    }
+    position: absolute;
+    display: none;
+    background-color: #f0f0f0;
+    border: 2px solid #5f5f5f;
+    padding: 5px;
+  }
+
+  .comments{
+    margin-top: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border: 1px solid hsl(180, 0%, 90%);
+    background-color: hsl(0, 0%, 97%);
+
+    input[type=text]{
+      width: 80%;
     }
   }
 }
-
-.information
-{
-  @include container-border();
-  font-size: 30%;
-  line-height: 120%;
-}
-
-.playlist
-{
-  display: flex;
-  @include container-border();
-
-  .add-plylist-action
-  {
-    width: 60%;
-    display: flex;
-    justify-content: flex-start;
-    .button
-    {
-      display: flex;
+.candidates{
+  .title{
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  margin-top: 15px;
+  border: 1px solid hsl(180, 0%, 90%);
+  background-color: hsl(0, 0%, 97%);
+  .video-list{
+    .thumbnail{
+      width: 110px;
+      height: 92px;
     }
-  }
-  .reputate-action-button
-  {
-    width: 40%;
-    display: flex;
-    justify-content: flex-end;
-    .button
-    {
-      display:flex;
-      padding: 30px, 0px, 30px, 0px;
+    .information{
+      margin-left: 110px;
+      padding: 20px 10px 20px 10px;
     }
-  }
-}
-
-.playlist-actions
-{
-  margin-bottom: 10px;
-  clear: both;
-  .field
-  {
-    float:left;
-  }
-}
-
-.floating-playlist-add-action-container
-{
-  margin-bottom: 10px;
-}
-
-.view-comments
-{
-  @include container-border();
-}
-
-.new-comments
-{
-  padding-bottom: 10px;
-  clear: both;
-  .action
-  {
-    position: relative;
-    top: -10px;
-    float: right;
   }
 }

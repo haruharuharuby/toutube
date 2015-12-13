@@ -1,0 +1,34 @@
+%p#notice= notice
+
+.container
+  .row.my-menu.center-block
+    = render partial: "my_menu"
+  .row.title
+    %h2 チャンネル
+  .row.current-channel
+    現在のチャンネル
+    = current_user.channels.current_channel.name
+
+  .row.list
+    %h3 あなたが作成したチャンネル
+    %ul.nav
+      - current_user.channels.each do |channel|
+        %li
+          .name
+            名前 #{channel.name}
+            -unless channel.current?
+              = link_to "チャンネルを変更する", user_channel_path(channel), method: :put
+          .created-at
+            作成日 #{channel.created_at.localtime}
+    %p
+      %p#notice= notice
+
+  .row.new-channel
+    %h3 新しいチャンネルを作成
+    - new_channel = Channel.new(user:current_user, current:false)
+    = form_for new_channel, url: user_channels_path do |f|
+      = f.label :name, "名前"
+      = f.text_field :name
+      = f.hidden_field :user_id
+      = f.hidden_field :current
+      = f.submit "チャンネルを作成", class:"btn btn-default"

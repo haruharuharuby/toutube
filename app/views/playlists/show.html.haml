@@ -1,2 +1,7 @@
-- @videos.each.with_index do |video, index|
-  = video_tag video.uri, controls:true, size: "640x480", class: "playlist-video",id: index.to_s
+%p#notice=notice
+.container
+  .row.title
+    %h3 #{@playlist.name}
+  .row.playlist
+    - @playlist.videos.each_with_index do |video, index|
+      = video_tag video.uri, controls:true, size:"730x408", class:"playlist-video", id: index

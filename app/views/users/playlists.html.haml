@@ -1,17 +1,10 @@
 %p#notice= notice
-
-%p
-  = render partial: "my_menu", locals: {user: @user}
-
-%p
-  %b Name:
-  = @user.name
-  .playlists-container
-    .see-later
-      = raw render_playlist_link("後で見る", @see_lateres)
-    .favorite
-      = raw render_playlist_link("お気に入り", @favorites)
-    .my-playlist
-      = raw render_playlist_link("マイプレイリスト", @custom_playlists)
-    .likes
-      = raw render_reputation_link("高く評価した動画", @likes)
+.container
+  .row.my-menu.center-block
+    = render partial: "my_menu"
+  .row.playlists
+    %ul.list-inline
+      - current_user.playlists.each do |playlist|
+        %li
+          = link_to image_tag(playlist.videos.first.uri_url(:thumb)), playlist_path(playlist)
+          = playlist.name

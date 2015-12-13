@@ -1,50 +1,99 @@
-%p#notice= notice
-.page-container
-  .watch-container
-    .contents
-      =video_tag @video.uri, controls:true, size: "640x480"
-    .video-action-container
-      .video-title
-        %b=@video.title
+.page.container
+  .watch.col-md-8
+    #notice=notice
+    .row.screen
+      =video_tag @video.uri, controls:true, size:"730x408"
+    .channel-border
+      .row.video-title
+        %h2 #{@video.title}
+      .row.channel
+        .symbol.col-md-1.glyphicon.glyphicon-film
+        .operation.col-md-5
+          .name
+            = link_to @video.channel.name, channel_path(@video.channel)
+          .row.subscribe-action
+            %small
+              .action.col-md-8.col-xd-10.col-xs-12.glyphicon.glyphicon-play
+                - if current_user
+                  - subscription = current_user.subscriptions.where(channel: @video.channel)
+                  - if subscription.any?
+                    %b=link_to "チャンネル登録を解除する", user_subscription_path(subscription.first), method: :delete, data:{confirm: "本当に解除しますか?"}
+                  - else
+                    %b=link_to "チャンネル登録", user_subscriptions_path(channel: @video.channel), method: :post
+                - else
+                  ログインしてください。
+              .subscribe-count.col-md-4
+                #{@video.channel.subscriptions.count}
+        .view-count-container.col-md-2.col-md-offset-3
+          .empty
+          .view-count
+            #{@video.view_count}
 
-    .channel-container
-      .channel-icon
-      .channel-information
-        %b=@video.channel.name
-        .channel-action
-          - action = channel_subscribe_action_param(@video, current_user)
-          = form_tag register_channel_path(@video.channel), method: :post do
-            = hidden_field_tag 'register',action[:value]
-            = submit_tag action[:text]
-        .interactions
-          %b 視聴回数:
-          =@video.rating.interactions
-    .playlist
-      .add-plylist-action
-        .button
-          .icon
-            = image_tag 'ic_add_black_24dp_1x.png'
-          .button
-            = link_to "add", playlists_path(video:@video), remote: true, query: @video_id
-        .button
-          .icon
-            = image_tag 'ic_share_black_24dp_1x.png'
-          .button
-            = link_to "share", playlists_path, remote: true, query: @video.id
-        .button
-          .icon
-            = image_tag 'ic_more_horiz_black_24dp_1x.png'
-          .button
-            = link_to "other...", playlists_path, remote: true
+      .row.playlist
+        .add.col-md-2.glyphicon.glyphicon-plus
+          追加
+        .share.col-md-2.glyphicon.glyphicon-share
+          = link_to "共有", user_playlists_path, remote: true, query: @video
+        .other.glyphicon.col-md-2.glyphicon-option-horizontal
+          = link_to "その他", user_playlists_path, remote: true
+        .like.col-md-2.col-md-offset-2
+          - if @video.like?(current_user)
+            = link_to "", playlists_video_path(q: Playlist.types[:like]), method: :delete, class:"cancel-like glyphicon glyphicon-thumbs-up pull-left"
+          - else
+            = link_to "", playlists_video_path(q: Playlist.types[:like]), method: :post, class:"add-like glyphicon glyphicon-thumbs-up pull-left"
+          = @video.count_likes
+        .dislike.col-md-2
+          - if @video.dislike?(current_user)
+            = link_to "", playlists_video_path(q: Playlist.types[:dislike]), method: :delete, class:"cancel-like glyphicon glyphicon-thumbs-up pull-left"
+          - else
+            = link_to "", playlists_video_path(q: Playlist.types[:dislike]), method: :post, class:"add-like glyphicon glyphicon-thumbs-up pull-left"
+          = @video.count_dislikes
 
-      .reputate-action-button
-        = render partial: "reputations/reputation", locals: {video: @video}
-
-    .floating-playlist-add-action-container
+      .floating-playlist-add
+        - if current_user
+          %ul.nav.nav-stacked
+          - current_user.playlists.select_for_playlist_add.each do |playlist|
+            %li.nav
+              .name.pull-left
+                = playlist.name
+              .btn.btn-default
+                - if playlist.videos.where(id:@video).any?
+                  = link_to "削除", playlist_video_relation_path(playlist.playlist_video_relations.where(video_id: @video).first), method: :delete
+                -else
+                  = link_to "追加", playlist_video_relations_path(playlist_video_relation: {playlist_id: playlist, video_id: @video}), method: :post
+          .new-action
+            - new_playlist = current_user.playlists.build(playlist_type: Playlist.types[:other])
+            = form_for new_playlist, url: user_playlists_path do |f|
+              .field
+                = f.hidden_field :user_id
+                = f.hidden_field :playlist_type
+                = f.text_field :name
+              .action
+                = f.submit "新しい再生リストを作成", class:"btn btn-default"
+        - else
+          ログインしてください。
 
     .comments
-      = render partial: "comments/index", locals: {video: @video, comment: @comment}
+      %small すべてのコメント (#{@video.comments.length})
+      .new-comment
+        = form_for @video.comments.build, url: video_comments_path(@video) do |f|
+          .field
+            = f.hidden_field :user_id
+            = f.hidden_field :video_id
+            = f.text_field :body, "placeholder":"公開コメントを追加"
+          .action
+            = f.submit "コメントする", class:"btn btn-default"
 
-  .candidate-container
-    .contents
-      = render partial: "candidates", locals: {videos: Video.recommends}
+      .view-comments
+        - @video.comments.order("id desc").each do |c|
+          .commenter
+            = link_to c.user.name, c.user
+          .comment-body
+            = c.body
+          .comment-date
+            #{time_ago_in_words c.created_at.localtime} 前
+          .comment-action
+            = link_to '削除', video_comment_path(video_id: @video, id: c), method: :delete, data: { :confirm => 'Are you sure?' }
+
+  .candidates.col-md-4
+    = render "candidates", videos: Video.recommends

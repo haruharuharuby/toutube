@@ -1,17 +1,23 @@
 %p#notice= notice
-
-%p
-  = render partial: "my_menu", locals: {user: @user}
-
-%p
-  %b User:
-  = @user.name
-
-%p
-  登録チャンネル
-  .channels-container
-    - @user.my_favorite_channels.each do |c|
-      .channel-name
-        = c.name
-      .channel-link
-        = link_to image_tag(c.videos.first.uri_url(:thumb)), channel_path(c)
+.container
+  .row.my-menu.center-block
+    = render partial: "my_menu"
+  .row.subscriptions
+    .subject
+      登録チャンネル
+    %ul.list-inline
+      - current_user.subscriptions.each do |subscription|
+        - subscription.channel.videos.each do |subscribed_video|
+          %li
+            = link_to image_tag(subscribed_video.uri_url(:thumb), size: "128x72"), video_path(subscribed_video)
+            %small
+              .information
+                .title
+                  = link_to subscribed_video.title, subscribed_video
+                .author
+                  作者:
+                  = link_to subscribed_video.channel.name, channel_path(subscribed_video.channel)
+                .view-count
+                  視聴回数
+                  #{subscribed_video.view_count} 回 *
+                  #{time_ago_in_words subscribed_video.created_at} 前

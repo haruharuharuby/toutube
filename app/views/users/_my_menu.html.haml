@@ -1,13 +1,11 @@
-= content_for(:submenu) do
-  .my-page-menu
-    %ul
-      %li
-        = link_to "home", home_user_path(user)
-      %li
-        = link_to "videos", videos_user_path(user)
-      %li
-        = link_to "playlists", playlists_user_path(user)
-      %li
-        = link_to "channels", channels_user_path(user)
-      %li
-        = link_to "descriptions", description_user_path(user)
+%ul.nav.navbar-nav.navbar-fluid
+  %li.home
+    = link_to "ホーム", home_user_path
+  %li.videos
+    = link_to "動画", videos_user_path
+  %li.playlists
+    = link_to "再生リスト", user_playlists_path
+  %li.subscriptions
+    = link_to "チャンネル", user_subscriptions_path
+  %li.description
+    = link_to "概要", edit_user_path
