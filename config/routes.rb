@@ -14,10 +14,6 @@ Rails.application.routes.draw do
     collection do
       get 'search'
     end
-    member do
-      post 'playlists' => 'videos#add_playlist'
-      delete 'playlists' => 'videos#delete_playlist'
-    end
     resources :comments, except: [:edit, :new, :index, :show]
   end
 

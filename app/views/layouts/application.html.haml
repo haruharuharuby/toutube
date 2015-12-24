@@ -24,8 +24,9 @@
       %ul.user-menu.nav.navbar-nav.navbar-right
         %li.upload
           = link_to "アップロード", new_video_path
-        %li.signup
-          = link_to 'サインアップ', signup_path
+        - unless current_user
+          %li.signup
+            = link_to 'サインアップ', signup_path
         %li.login
           - if current_user
             .user-container

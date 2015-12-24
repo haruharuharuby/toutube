@@ -5,6 +5,14 @@ class Playlist < ActiveRecord::Base
 
   enum type: [:like, :dislike, :later, :favorite, :history, :other]
 
+  def build_relation(video)
+    self.playlist_video_relations.build(video: video)
+  end
+
+  def video_relation(video)
+    self.playlist_video_relations.where(video: video).first
+  end
+
   def already?(video)
     self.playlist_video_relations.where(video: video).exists?
   end

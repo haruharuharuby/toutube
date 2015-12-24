@@ -33,18 +33,6 @@ class VideosController < ApplicationController
     render :index
   end
 
-  def add_playlist
-    playlist = @video.new_playlist(current_user, params[:q])
-    playlist.save
-    redirect_to :back;
-  end
-
-  def delete_playlist
-    playlist = @video.get_playlist(current_user, params[:q])
-    playlist.destroy
-    redirect_to :back;
-  end
-
   private
     def set_video
       @video = Video.find(params[:id])
