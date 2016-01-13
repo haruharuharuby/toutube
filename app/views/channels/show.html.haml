@@ -1,23 +1,10 @@
 %p#notice= notice
-
-.container
-  .row.title
-    %h3 チャンネル #{@channel.name}
-  .row.video-list
-    %h4 このチャンネルに投稿された動画
-    %ul.nav.navbar-nav
-      - @channel.videos.each do |video|
-        %li
-          .thumbnail
-            = link_to image_tag(video.uri_url(:thumb)), video
-          %small
-            .information
-              .title
-                = link_to video.title, video
-              .author
-                作者:
-                = link_to video.channel.name, channel_path(video.channel)
-              .view-count
-                視聴回数
-                #{video.view_count} 回 *
-                #{time_ago_in_words video.created_at} 前
+.user-container
+  .row.channel-info
+    .covor-image
+      = image_tag @channel.user.gravatar_url, class: "channel-image"
+    .channel-name
+      %h3 #{ @channel.name }
+  .row.my-videos
+    %h3 アップロードした動画
+    = videos_link_to @channel.videos

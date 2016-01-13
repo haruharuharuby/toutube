@@ -107,7 +107,7 @@ module VideosHelper
       return (button_to "再生リストを操作するにはログインします", login_path, method: :get)
     end
 
-    playlists = current_user.playlists.operatable_lists
+    playlists = current_user.playlists.operatable_list
     playlists_html = capture do
       content_tag_for :li, playlists, class: "btn-default" do |playlist|
         unless playlist.videos.exists?(video)

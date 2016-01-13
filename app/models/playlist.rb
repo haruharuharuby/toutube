@@ -17,8 +17,12 @@ class Playlist < ActiveRecord::Base
     self.playlist_video_relations.where(video: video).exists?
   end
 
-  def self.operatable_lists
+  def self.operatable_list
     self.where(playlist_type: [2,3,5])
+  end
+
+  def self.custom_list
+    self.where(playlist_type: [2,5])
   end
 
   def self.get(playlist_type)

@@ -88,7 +88,7 @@
           .playlist
             再生リスト
             %ul.nav.nav-stacked
-              - current_user.playlists.operatable_lists.each do |playlist|
+              - current_user.playlists.operatable_list.each do |playlist|
                 %li.playlist-item
                   .glyphicon.glyphicon-menu-hamburger.pull-left
                   .link

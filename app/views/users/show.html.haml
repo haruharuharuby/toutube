@@ -7,34 +7,13 @@
       %h3 #{ @user.channels.current_channel.name }
   .row.playlists
     %h3 作成した再生リスト
-    - @user.playlists.where(playlist_type: [Playlist.types[:other], Playlist.types[:favorite]]).each do |playlist|
-      .playlist.pull-left
-        - if playlist.videos.any?
-          .link
-            = link_to image_tag(playlist.videos.first.uri_url(:thumb), size: "128x72"), [@user, playlist]
-          .name
-            = link_to playlist.name, [@user, playlist]
-        - else
-          .link
-            動画はありません。
-          .name
-            = playlist.name
+    = custom_playlists_links_to @user.playlists.custom_list
   .row.my-videos
     %h3 アップロードした動画
-    %ul.list-inline
-      - @user.videos.each do |video|
-        %li
-          .image-link
-            = link_to image_tag(video.uri_url(:thumb), size: "128x72"), video
-          .name-link
-            = link_to video.title, video
+    = videos_link_to @user.videos
   .row.high-reputated-videos
     %h3 高く評価した動画
-    - @user.playlists.like.videos.each do |video|
-      .image-link
-        = link_to image_tag(video.uri_url(:thumb), size: "128x72"), video
-      .name-link
-        = link_to video.title, video
+    = videos_link_to @user.playlists.like.videos
   .row.subscribed-channel
     %h3 登録チャンネル
     - @user.subscriptions.each do |subscription|
