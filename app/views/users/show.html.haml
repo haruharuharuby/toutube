@@ -1,6 +1,44 @@
 %p#notice= notice
-.container
-  .row.my-menu.center-block
-    = render partial: "my_menu"
-  .row.videos
-    = render partial: "videos/index", locals: {videos: current_user.videos}
+.user-container
+  .row.channel-info
+    .covor-image
+      = image_tag @user.gravatar_url, class: "channel-image"
+    .channel-name
+      %h3 #{ @user.channels.current_channel.name }
+  .row.playlists
+    %h3 作成した再生リスト
+    - @user.playlists.where(playlist_type: [Playlist.types[:other], Playlist.types[:favorite]]).each do |playlist|
+      .playlist.pull-left
+        - if playlist.videos.any?
+          .link
+            = link_to image_tag(playlist.videos.first.uri_url(:thumb), size: "128x72"), [@user, playlist]
+          .name
+            = link_to playlist.name, [@user, playlist]
+        - else
+          .link
+            動画はありません。
+          .name
+            = playlist.name
+  .row.my-videos
+    %h3 アップロードした動画
+    %ul.list-inline
+      - @user.videos.each do |video|
+        %li
+          .image-link
+            = link_to image_tag(video.uri_url(:thumb), size: "128x72"), video
+          .name-link
+            = link_to video.title, video
+  .row.high-reputated-videos
+    %h3 高く評価した動画
+    - @user.playlists.like.videos.each do |video|
+      .image-link
+        = link_to image_tag(video.uri_url(:thumb), size: "128x72"), video
+      .name-link
+        = link_to video.title, video
+  .row.subscribed-channel
+    %h3 登録チャンネル
+    - @user.subscriptions.each do |subscription|
+      .image-link
+        = link_to image_tag(subscription.channel.videos.first.uri_url(:thumb), size: "128x72"), subscription.channel
+      .name-link
+        = link_to subscription.channel.name, subscription.channel

@@ -1,9 +1,15 @@
-.playlists{
-  li{
-    vertical-align: top;
-  }
+.title-list{
+  color: #F0F0F0;
+  background-color: #202020;
+  height: 408px;
 }
 
-video{
-  background-color: black;
+.description{
+  margin-left: 64px;
+  padding-left: 10px;
+  line-height: 34px;
+  .title{
+    display: table-cell;
+    vertical-align: middle;
+  }
 }

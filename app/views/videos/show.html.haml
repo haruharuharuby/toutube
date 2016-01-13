@@ -1,108 +1,11 @@
-.container.page
-  .col-md-8.watch
+.container.main-content
+  .col-md-8.main
     #notice=notice
     .row.screen
       = video_tag @video.uri, controls:true, size:"730x408"
-    .row.title
-      %h2 #{@video.title}
-    .row.channel
-      .col-md-1.symbol.glyphicon.glyphicon-film
-      .col-md-5
-        .name
-          = link_to @video.channel.name, channel_path(@video.channel)
-        .row.subscribe
-          %small
-            .col-md-8.col-xd-10.col-xs-12.action.glyphicon.glyphicon-play
-              - if current_user
-                - subscription = current_user.subscriptions.where(channel: @video.channel)
-                - if subscription.any?
-                  %b=link_to "チャンネル登録を解除する", user_subscription_path(subscription.first), method: :delete, data:{confirm: "本当に解除しますか?"}
-                - else
-                  %b=link_to "チャンネル登録", user_subscriptions_path(channel: @video.channel), method: :post
-              - else
-                ログインしてください。
-            .col-md-4.view-count
-              #{@video.channel.subscriptions.count}
-      .col-md-2.col-md-offset-3
-        #{@video.view_count}
+      %h2 #{ @video.title }
 
-    .row.playlist
-      .col-md-2.add.glyphicon.glyphicon-plus
-        追加
-      .col-md-2.glyphicon.glyphicon-share
-        = link_to "共有", user_playlists_path, remote: true, query: @video
-      .col-md-2.glyphicon.glyphicon-option-horizontal
-        = link_to "その他", user_playlists_path, remote: true
-      .col-md-2.col-md-offset-2
-        - if @video.dislike?(current_user)
-          = link_to "", playlist_video_relation_path(current_user.playlists.like.video_relation(@video)), method: :delete, class:"cancel-like glyphicon glyphicon-thumbs-up pull-left"
-        - else
-          .add-like.glyphicon.glyphicon-thumbs-up.pull-left
-          = form_for current_user.playlists.like.build_relation(@video), class: "pull-left" do |f|
-            = f.hidden_field :playlist_id
-            = f.hidden_field :video_id
-            = f.submit ""
-        = @video.count_likes
-      .col-md-2
-        - if @video.dislike?(current_user)
-          = link_to "", playlist_video_relation_path(current_user.playlists.dislike.video_relation(@video)), method: :delete, class:"cancel-dislike glyphicon glyphicon-thumbs-up pull-left"
-        - else
-          .add-dislike.glyphicon.glyphicon-thumbs-up.pull-left"
-          = form_for current_user.playlists.dislike.build_relation(@video), class: "pull-left" do |f|
-            = f.hidden_field :playlist_id
-            = f.hidden_field :video_id
-            = f.submit ""
-        = @video.count_dislikes
-
-      .floating-playlist-add
-        - if current_user
-          %ul.nav.nav-stacked
-          - current_user.playlists.select_for_playlist_add.each do |playlist|
-            %li.nav
-              .name.pull-left
-                = playlist.name
-              .btn.btn-default
-                - if playlist.videos.exists?(@video)
-                  = link_to "削除", playlist_video_relation_path(playlist.video_relation(@video)), method: :delete
-                -else
-                  - video_relation = playlist.build_relation(@video)
-                  = form_for video_relation do |f|
-                    = f.hidden_field :playlist_id
-                    = f.hidden_field :video_id
-                    = f.submit "追加"
-          .new-action
-            - new_playlist = current_user.playlists.build(playlist_type: Playlist.types[:other])
-            = form_for new_playlist, url: user_playlists_path do |f|
-              .field
-                = f.hidden_field :user_id
-                = f.hidden_field :playlist_type
-                = f.text_field :name
-              .action
-                = f.submit "新しい再生リストを作成", class:"btn btn-default"
-        - else
-          ログインしてください。
-
-    .comments.row
-      %small すべてのコメント (#{@video.comments.length})
-      .new
-        = form_for @video.comments.build, url: video_comments_path(@video) do |f|
-          .field
-            = f.hidden_field :user_id
-            = f.hidden_field :video_id
-            = f.text_field :body, placeholder:"公開コメントを追加"
-          .action
-            = f.submit "コメントする", class:"btn btn-default"
-
-      .view
-        - @video.comments.order("id desc").each do |c|
-          .commenter
-            = link_to c.user.name, c.user
-          .body
-            = c.body
-          .date
-            #{time_ago_in_words c.created_at.localtime} 前
-          .action
-            = link_to '削除', video_comment_path(video_id: @video, id: c), method: :delete, data: { :confirm => 'Are you sure?' }
+    = render "videos/video_info", video: @video
 
   .col-md-4.candidates
-    = render "candidates", videos: Video.recommends
+    = render "videos/candidates", videos: Video.recommends

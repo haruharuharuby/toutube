@@ -1,4 +1,22 @@
+// vide::global mixins
+@mixin container-style
+{
+  border: 1px solid hsl(180, 0%, 90%);
+  margin-bottom: 10px;
+}
 
+@mixin row-style{
+  margin: 10px;
+}
+
+@mixin text-style{
+  border: 1px solid hsl(180, 0%, 90%);
+  border-radius: 5px;
+  width: 100%;
+}
+
+
+// video::index styles
 .video-upload{
   width: 350px;
   padding: 15px;
@@ -10,138 +28,134 @@
   }
   li{
     margin: 10px 10px 10px 10px;
-  }
-  .thumbnail{
-    width: 192px;
-    height:108px;
+    height: 166px;
   }
 }
 
-.watch{
-  #notice{
-    margin-top: 15px;
-  }
-  .screen{
-    margin-top: 15px;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    video{
-      background-color: black;
-    }
-  }
-  .channel-border{
-    border: 1px solid hsl(180, 0%, 90%);
-    background-color: hsl(0, 0%, 97%);
-    padding: 0 15px 0 15px;
-  }
-  .video-title{
-    margin-left: 0;
-  }
-  .channel{
-    border-bottom: 2px solid hsl(180, 0%, 80%);
-    padding: 5px 0 5px 0;
+// video::show styles
+.main-content
+{
+  .main{
+    .channel-playlist{
+      @include container-style;
+      .container-fluid{
+        >.row{
+          @include row-style;
+        }
+        .channel{
+          border-bottom: 1px solid hsl(180, 0%, 90%);
+          padding-bottom: 10px;
+          .icon{
+            margin-right: 10px;
+          }
+          .channel-container{
+            margin-left: 60px;
+            .subscribe-and-count{
+              height: 34px;
+              line-height: 31px;
+              > *{
+                display: inline-block;
+                vertical-align: middle;
+              }
+              .count{
+                border: 1px solid hsl(180, 0%, 90%);
+                margin-left: -5px;
+              }
+            }
 
-    .screen{
-    }
-    .symbol{
-      font-size: 300%;
-    }
-    .subscribe-action{
-      margin-left: 0;
-    }
-    .action{
-      background-color: red;
-      color: white;
-      padding: 5px 0 1px 5px;
-      min-height: 25px;
-      margin-left: 0;
-    }
-    .action a{
-      color: white;
-    }
-    .action a:hover{
-      color: white;
-    }
-    .action::before{
-      background-color: white;
-      color: red;
-      border-radius: 3px;
-      padding: 2px 4px 2px 4px;
-      font-size: 60%;
-    }
-    .subscribe-count{
-      margin-top: 1px;
-      padding: 3px 0 2px 5px;
-      border: 1px solid hsl(180, 0%, 50%);
-      color: hsl(180, 0%, 50%);
-    }
-    .empty{
-      min-height: 25px;
-    }
-    .view-count{
-      text-align: right;
-      color: hsl(180, 0%, 50%);
-    }
-  }
+            .interaction-count{
+              margin-left: 200px;
+              position: relative;
+              top: 100%;
+              transform: translateY(100%);
+            }
 
-  .playlist{
-    margin: 10px 0 10px 0;
-    color: hsl(180, 0%, 50%);
-    a{
-      color: hsl(180, 0%, 50%);
-    }
-    .cancel-dislike,.cancel-like{
-      color: blue;
-    }
-    .glyphicon-thumbs-up,.glyphicon-thumbs-down{
-      font-size: 120%;
-      margin-right: 10px;
-    }
-  }
-  .playlist::before{
-    font-size: 150%;
-  }
+            .btn{
+              color: white;
+              background-color: red;
+              font-style: oblique;
+            }
+          }
+        }
 
-  .floating-playlist-add{
-    .name{
-      padding: 10px;
+        .playlist{
+          position: relative;
+          .acion{
+            li{
+              width: 50px;
+            }
+          }
+          .reputation
+          {
+            .cancel{
+              color: hsl(210, 100%, 60%);
+            }
+            li{
+              width: 40px;
+            }
+          }
+          .playlist-action-container{
+            position: absolute;
+            @include container-style;
+            top: 50px;
+            background-color: hsl(0, 0%, 97%);
+            z-index: 1;
+            > *{
+              margin-left: 30px;
+            }
+            .new_playlist{
+              margin-right: 10px;
+              margin-bottom: 10px;
+            }
+            ul{
+              padding: 0;
+            }
+            li{
+              list-style: none;
+            }
+            form{
+              #new_playlist_name{
+                margin-bottom: 10px;
+              }
+              input[type=submit]{
+                margin-left: auto;
+              }
+            }
+            textarea{
+              width: 100%;
+            }
+          }
+        }
+      }
     }
-    position: absolute;
-    display: none;
-    background-color: #f0f0f0;
-    border: 2px solid #5f5f5f;
-    padding: 5px;
-  }
 
-  .comments{
-    margin-top: 15px;
-    padding-left: 10px;
-    padding-top: 10px;
-    border: 1px solid hsl(180, 0%, 90%);
-    background-color: hsl(0, 0%, 97%);
+    .comments
+    {
+      @include container-style;
+      .title{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .new{
+        textarea{
+          @include text-style;
+        }
+      }
 
-    input[type=text]{
-      width: 80%;
+      .view{
+        .comment{
+
+        }
+      }
     }
   }
 }
+
 .candidates{
-  .title{
-    margin-top: 10px;
-    margin-left: 10px;
+  .information{
+    margin-left: 130px;
   }
-  margin-top: 15px;
-  border: 1px solid hsl(180, 0%, 90%);
-  background-color: hsl(0, 0%, 97%);
-  .video-list{
-    .thumbnail{
-      width: 110px;
-      height: 92px;
-    }
-    .information{
-      margin-left: 110px;
-      padding: 20px 10px 20px 10px;
-    }
+  li{
+    height: 92px;
   }
 }

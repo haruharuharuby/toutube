@@ -16,17 +16,14 @@ Rails.application.routes.draw do
     end
     resources :comments, except: [:edit, :new, :index, :show]
   end
-
   resources :playlist_video_relations, only: [:create, :destroy]
+  resources :subscriptions, only: [:create, :update, :destroy]
 
   resource :user, except: [:index, :update] do
-    resources :subscriptions, only: [:index, :create, :update, :destroy]
-    resources :playlists, only: [:index, :show, :create, :update, :destroy]
     resources :channels
-    member do
-      get 'home'
-      get 'videos'
-    end
+    resources :subscriptions, only: [:index]
+    resources :videos, only: [:index]
+    resources :playlists, only: [:index, :show, :create, :update, :destroy]
+    resources :comments, except: [:edit, :new, :index, :show]
   end
-
 end

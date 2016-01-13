@@ -1,7 +1,25 @@
 %p#notice=notice
 .container
-  .row.title
-    %h3 #{@playlist.name}
   .row.playlist
-    - @playlist.videos.each_with_index do |video, index|
-      = video_tag video.uri, controls:true, size:"730x408", class:"playlist-video", id: index
+    .col-md-8
+      - @playlist.videos.each_with_index do |video, index|
+        = video_tag video.uri, controls:true, size:"730x408", class:"playlist-video", id: index
+    .col-md-4.title-list
+      .playlist-name
+        %h5 #{ @playlist.name }
+        %small
+          #{ @playlist.user.channels.current_channel.name }
+          1 / #{ @playlist.videos.count } 本の動画
+      - @playlist.videos.each do |video|
+        .video-info
+          .image.pull-left
+            = link_to image_tag(video.uri_url(:thumb), size: "64x36"), video
+          .description
+            .title
+              = link_to video.title, video
+
+.container.main-content
+  .col-md-8.main
+    = render "videos/video_info", video: @playlist.videos.first
+  .col-md-4.candidates
+    = render "videos/candidates", videos: Video.recommends

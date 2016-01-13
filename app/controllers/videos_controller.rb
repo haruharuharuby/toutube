@@ -29,7 +29,7 @@ class VideosController < ApplicationController
   end
 
   def search
-    @videos = Video.search(params[:search_keyword])
+    @videos = Video.search(params[:key])
     render :index
   end
 

@@ -9,9 +9,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
-
   def create
     @user = User.new(user_params)
     if @user.save
@@ -35,13 +32,16 @@ class UsersController < ApplicationController
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
-  def home
-  end
-
-
   private
     def set_user
-      @user = current_user
+      logger.debug(params[:format])
+      unless params[:format].blank?
+        logger.debug("not current_user")
+        @user = User.find(params[:format])
+      else
+        logger.debug("current_user")
+        @user = current_user
+      end
     end
 
     def user_params

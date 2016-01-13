@@ -1,11 +1,11 @@
 .title
   次の動画
-.video-list
+.thumbnails
   - videos.each do |video|
     %ul.nav.nav-stacked
       %li
-        .thumbnail.pull-left
-          = link_to image_tag(video.uri_url(:thumb2), size: "108x12"), video
+        .thumb.pull-left
+          = link_to image_tag(video.uri_url(:thumb2), size: "108x72"), video
         %small
           .information
             .title

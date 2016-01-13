@@ -32,6 +32,7 @@ gem 'aws-sdk-core'
 gem 'aws-sdk-resources'
 gem 'devise'
 gem "figaro"
+gem 'gravtastic'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'

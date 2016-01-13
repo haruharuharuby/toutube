@@ -8,39 +8,40 @@
 %body
 
 %header
-  %nav.nav
+  %nav
     .container-fluid
-      %ul.video-menu.nav.navbar-nav
-        %li.button-icon
-          = button_tag class: "toggle-side-menu btn navbar-btn btn-default" do
-            %span.glyphicon.glyphicon-align-justify
-        %li.logo-top-link
-          = link_to "dfadsfdsafads", videos_path, class: "home-button"
-        %li.search
-          = form_tag search_videos_path, method: :get do
-            = text_field_tag 'search_keyword'
-            = button_tag class: "search-button btn navbar-btn btn-default" do
-              %i.glyphicon.glyphicon-search
-      %ul.user-menu.nav.navbar-nav.navbar-right
-        %li.upload
-          = link_to "アップロード", new_video_path
-        - unless current_user
-          %li.signup
-            = link_to 'サインアップ', signup_path
-        %li.login
-          - if current_user
-            .user-container
-              .user-icon #{current_user.name}
-          -else
+      .video-menu.navbar-header.pull-left
+        = side_bar_toggle_button_to
+      .logo-top-link.pull-left
+        = link_to "not-visible-caption", videos_path, class: "home-button navbar-brand"
+      .search-bar.pull-left
+        = search_form_for
+      %ul.user-menu.list-inline.navbar-right
+        - if current_user
+          %li.upload.hidden-xs
+            = link_to "アップロード", new_video_path
+          %li.user-icon
+            = image_tag current_user.gravatar_url, size: "50x50"
+        - else
+          %li.login.btn
             = link_to 'ログイン', login_path
-          .user-description
-            - if current_user
-              .email #{current_user.email}
-              - current_user.channels.each do |channel|
-                .channel
-                  = link_to display_channel_name(channel), user_channel_path(channel)
-              .logout
-                = link_to 'ログアウト', logout_path, method: :delete
+          %li.signup.btn
+            = link_to "サインアップ", signup_path
+      - if current_user
+        .user-description
+          .email
+            = current_user.email
+          .channel
+            .image.pull-left
+              = image_tag current_user.gravatar_url, size: "50x50"
+            .channel-info
+              .name
+                = current_user.channels.current_channel.name
+              .subscriptions
+                チャンネル登録者数 #{ current_user.channels.current_channel.subscriptions.count } 人
+            .logout
+              = link_to "ログアウト", logout_path, method: :delete
+
 
 .body
   .container-fluid
@@ -73,34 +74,35 @@
             %li.mychannel
               .glyphicon.glyphicon-user.pull-left
               .link
-                = link_to "マイチャンネル", user_path
+                = link_to "マイチャンネル", current_user
             %li.subscriptions
               .glyphicon.glyphicon-inbox
-                = link_to "登録チャンネル", user_subscriptions_path
+                = link_to "登録チャンネル", current_user
             %li.history
               .glyphicon.glyphicon-hourglass
-                = link_to "履歴", user_playlists_path, query: Playlist.types[:history]
+                = link_to "履歴", current_user, query: Playlist.types[:history]
             %li.later
               .glyphicon.glyphicon-dashboard
-                = link_to "後で見る", user_playlists_path, query: Playlist.types[:later]
+                = link_to "後で見る", current_user, query: Playlist.types[:later]
 
           .playlist
             再生リスト
             %ul.nav.nav-stacked
-              - current_user.playlists.each do |playlist|
+              - current_user.playlists.operatable_lists.each do |playlist|
                 %li.playlist-item
                   .glyphicon.glyphicon-menu-hamburger.pull-left
                   .link
-                    = link_to playlist.name, user_playlists_path
+                    = link_to playlist.name, current_user
 
           .subscriptions
-            = link_to "登録チャンネル", user_channels_path
+            = link_to "登録チャンネル", current_user
 
           %ul.nav.nav-stacked
             - current_user.subscriptions.each do |subscription|
               %li.channel-subscriptions
                 .channel
-                  = link_to subscription.channel.name, channel_path(subscription.channel)
+                  = image_tag subscription.channel.user.gravatar_url, size: "16x16"
+                  = link_to subscription.channel.name, subscription.channel
 
           %ul.nav.navbar-stacked
             %li.allchannnels

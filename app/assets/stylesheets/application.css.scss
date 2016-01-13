@@ -13,21 +13,25 @@
  *= require_tree .
  *= require_self
  */
-html
-{
+
+@mixin container-style{
+  border: 1px solid hsl(180, 0%, 90%);
+  margin-bottom: 10px;
+}
+
+html{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-*, *:before, *:after
-{
+*, *:before, *:after{
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
 
-body {
+body{
  	background-color: #f1f1f1;
  	color: #222;
  	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -35,118 +39,106 @@ body {
  	font-size: 15px;
 }
 
+video{
+  background-color: black;
+}
+
 $screen-xs-min: 400px;
 $screen-sm-min: 768px;
 $screen-md-min: 992px;
 
-@media (min-width: $screen-xs-min) {
+@mixin home-button-default{
+  display: block;
+  text-indent: -5000px;
+  background-position: center;
+  padding: 0;
+  height: 34px;
+  margin-top: 8px;
+  margin-right: 10px;
+}
+
+@media (min-width: $screen-xs-min){
   .home-button{
-    display: block;
-    text-indent: -5000px;
+    @include home-button-default;
     background: no-repeat image-url("ito-tube-logo-xs.png");
     background-size: 60px 34px;
-    background-position: center;
-    margin-top: 4px;
     width: 60px;
   }
-
-  .user-description
-  {
-    left: 0px;
+  .video-menu{
+    padding-left: 10px;
   }
 }
 
-@media (min-width: $screen-sm-min) {
+@media (min-width: $screen-sm-min){
   .home-button{
-    display: block;
-    text-indent: -5000px;
+    @include home-button-default;
     background: no-repeat image-url("ito-tube-logo.png");
     background-size: 125px 34px;
-    background-position: center;
-    margin-top: 0px;
     width: 125px;
-  }
-
-  .user-description
-  {
-    left: -100px;
   }
 }
 
 header{
-  border-bottom: 1px solid hsl(240, 20%, 95%);
-  background-color: #fefefe;
-  ul.video-menu{
-    display: block;
-    width: 50%;
-    li{
-      float: left;
-    }
-    li.button-icon{
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-    li.logo-top-link{
-      // margin-top: 4px;
-    }
-    li.search{
-      margin-left: 5px;
-    }
-    li input[type=text]{
-      height: 34px;
-      border: 1px solid darkgray;
-      border-radius: 4px;
-    }
+  a:hover{
+    background-color: hsl(0, 0%, 80%);
   }
 
-  ul.user-menu{
-    a:hover{
-      color: black;
+  border-bottom: 1px solid hsl(240, 20%, 95%);
+  background-color: #fefefe;
+  .container-fluid{
+    .video-menu{
+      margin-right: 15px; // offsetting navbar-margin in bootstrap (margin-left: -15px)
     }
-    .login{
-      .user-container
-      {
-        margin-right: 5px;
-        .user-icon{
-          display: table-cell;
-        	vertical-align: middle;
-          text-align: center;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-color: hsl(36,100%,80%);
-        }
-        .logout{
-          border-top: 1px solid darkgray;
+
+    .search-bar{
+      margin-top: 8px;
+      padding: 0;
+    }
+    .user-menu{
+      line-height: 49px;
+      a {
+        display: block;
+      }
+      img{
+        border-radius: 70px;
+      }
+    }
+
+    .user-description{
+      display: none;
+      position: absolute;
+      right: 20px;
+      width: 300px;
+      @include container-style;
+      background-color: hsl(0, 0%, 99%);
+      z-index: 1;
+      top: 50px;
+      > *{
+        margin: 10px;
+      }
+      ul{
+        -webkit-padding-start: 0;
+      }
+      li{
+        list-style: none;
+      }
+      .channel{
+        .channel-info{
+          min-height: 50px;
+          margin-bottom: 10px;
         }
       }
-      .user-description{
-        display: none;
-        position: absolute;
-        margin-top: 10px;
-        width: 150px;
-        border-radius: 4px;
-        background-color: hsl(36,100%,80%);
-        z-index: 1;
-        .email{
-          padding: 5px;
-        }
-        a{
-          padding: 5px;
-        }
-      }
-      .user-description:after{
-        content: '';
-        position: absolute;
-        margin-left: 100px;
-        border-top: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-left: 10px solid transparent;
-        border-bottom: 10px solid hsl(36,100%,80%);
-        width: 0;
-        height: 0;
-        bottom: 100%;
-      }
+    }
+    .user-description:after{
+      content: '';
+      position: absolute;
+      margin-left: 100px;
+      border-top: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      width: 0;
+      height: 0;
+      bottom: 100%;
     }
   }
 } // header
@@ -190,7 +182,8 @@ header{
     }
     .link a{
       margin-left: 10px;
-    }  }
+    }
+  }
 
   li.mychannel{
     .glyphicon{

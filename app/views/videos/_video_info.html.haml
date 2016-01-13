@@ -1,0 +1,45 @@
+.row.channel-playlist
+  .container-fluid
+    .row.channel
+      .col-md-12.channel-link
+        .icon.pull-left
+          = link_to (image_tag video.user.gravatar_url, size: "52x52"), video.channel
+        .channel-container
+          .name
+            = channel_link_to video
+          .subscribe-and-count.pull-left
+            .subscribe
+              = subscription_button_to video
+            .count
+              = video.channel.subscriptions.count
+          .interaction-count.text-right
+            = video.view_count
+    .row.playlist
+      .col-md-6.action
+        %ul.list-inline
+          %li
+            = playlist_add_toggle_button_to
+          %li
+            = playlist_share_button_to
+          %li
+            = playlist_other_button_to
+      .col-md-3.col-md-offset-3.reputation
+        %ul.list-inline.pull-right
+          %li
+            = playlist_like_button_to video
+          %li
+            = playlist_dislike_button_to video
+
+      .playlist-action-container
+        .checkbox
+          = playlist_action_buttons_to video
+        .new_playlist
+          = new_playlist_form_for video
+
+.row.comments
+  .col-md-12.title
+    %small すべてのコメント (#{video.comments.length})
+  .col-md-12.new
+    = new_comment_form_for video
+  .col-md-12.view
+    = comment_video_links_to video

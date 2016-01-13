@@ -18,4 +18,7 @@ class PlaylistVideoRelation < ActiveRecord::Base
     end
   end
 
+  def to_h_form_for
+    {"playlist_video_relation[video_id]":self.video_id.to_s, "playlist_video_relation[playlist_id]":self.playlist_id.to_s}
+  end
 end

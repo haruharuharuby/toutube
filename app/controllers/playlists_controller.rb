@@ -22,7 +22,7 @@ class PlaylistsController < ApplicationController
 
   private
     def set_playlist
-      @playlist = current_user.playlists.find(params[:id])
+      @playlist = current_user.playlists.find(params[:format])
     end
 
     def playlist_params

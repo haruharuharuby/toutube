@@ -1,23 +1,21 @@
-.my-menu{
-  width: 40%;
+.user-container{
+  margin-left: 100px;
+  margin-right: 100px;
+  border: 1px solid #D0D0D0;
+  background-color: #FCFCFC;
 
-  li{
-    border-bottom: 3px solid #f0f0f0;
-    a{
-      color: #101010;
-    }
+  .channel-info{
+    margin: 10px;
   }
-  li:hover{
-    border-bottom: 3px solid red;
-    a{
-      color: red;
-    }
-  }
-}
 
-.list{
-  li{
-    border-bottom: 2px solid #7f7f7f;
+  .playlists, .my-videos, .high-reputated-videos, .subscribed-channel{
+    margin-left: 10px;
+    margin-right: 10px;
     padding: 10px;
+    border: 1px solid #D0D0D0;
+  }
+  .covor-image{
+    margin: 20px;
+    background: linear-gradient(#D0D0D0, #E0E0E0);
   }
 }

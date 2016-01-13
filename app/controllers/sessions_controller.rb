@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to home_user_url
+      redirect_to videos_url
     else
       redirect_to videos_url
     end
